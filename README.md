@@ -52,4 +52,4 @@ The system uses 7 main tables:
 
 ## Authors
 
-[Your Name] and [Brother's Name] - University of Chicago Software Engineering Students
+Kulvansh Jaswal and Kuljot Jaswal - University of Calgary Software Engineering Students
