@@ -1,3 +1,5 @@
+CREATE DATABASE portfolio_tracker;
+
 CREATE TABLE users(
 	user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
 	username VARCHAR(50) NOT NULL UNIQUE,
