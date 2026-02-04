@@ -5,19 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users")
-public class User {
-    //Function variables
+@Table(name = "portfolios")
+public class Portfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long portfolioId;
+    @ManyToOne()
+    @JoinColumn(name = "created_by")
+    private User createdBy;
     @Column(nullable = false)
-    private String username;
-    @Column(nullable = false)
-    private String email;
+    private String name;
 }
