@@ -1,4 +1,8 @@
 package com.jaswal.portfoliotracker.enums;
 
-public class TransactionType {
+public enum TransactionType {
+    BUY,
+    SELL,
+    WITHDRAWAL,
+    DEPOSIT
 }

@@ -1,6 +1,6 @@
 package com.jaswal.portfoliotracker.entities;
 
-import com.jaswal.portfoliotracker.enums.*;
+import com.jaswal.portfoliotracker.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
