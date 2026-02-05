@@ -15,9 +15,10 @@ public class User {
     //Function variables
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
-    @Column(nullable = false)
+    @Column(name = "user_id")
+    private Long userId;
+    @Column(name = "username", nullable = false)
     private String username;
-    @Column(nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 }

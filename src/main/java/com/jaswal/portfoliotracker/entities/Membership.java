@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class Membership {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "membership_id")
     private Long membershipId;
     @ManyToOne()
     @JoinColumn(name = "user_id")
@@ -23,7 +24,7 @@ public class Membership {
     @ManyToOne()
     @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
-    @Column(nullable = false)
+    @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 

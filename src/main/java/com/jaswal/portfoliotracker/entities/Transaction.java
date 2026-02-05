@@ -18,22 +18,23 @@ import java.time.LocalDateTime;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
     private Long transactionId;
     @ManyToOne()
     @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "transaction_type", nullable = false)
     private TransactionType transactionType;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "asset_type", nullable = false)
     private AssetType assetType;
-    @Column(nullable = false)
+    @Column(name = "symbol", nullable = false)
     private String symbol;
-    @Column(nullable = false)
+    @Column(name = "quantity", nullable = false)
     private BigDecimal quantity;
-    @Column(nullable = false)
+    @Column(name = "price_per_unit", nullable = false)
     private BigDecimal pricePerUnit;
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "timestamp", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime timestamp;
 }

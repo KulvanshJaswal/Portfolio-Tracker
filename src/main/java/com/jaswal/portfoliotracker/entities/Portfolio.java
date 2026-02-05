@@ -13,10 +13,11 @@ import lombok.NoArgsConstructor;
 public class Portfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "portfolio_id")
     private Long portfolioId;
     @ManyToOne()
     @JoinColumn(name = "created_by")
     private User createdBy;
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 }
