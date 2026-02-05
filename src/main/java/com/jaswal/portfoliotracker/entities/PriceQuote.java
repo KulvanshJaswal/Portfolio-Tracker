@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 @Table(name = "price_quotes")
 public class PriceQuote {
     @Id
-    @Column(name = "symbol")
+    @Column(name = "symbol", length = 10)
     private String symbol;
     @Column(name = "price", nullable = false)
     private BigDecimal price;
-    @Column(name = "source", nullable = false)
+    @Column(name = "source", nullable = false, length = 50)
     private String source;
     @Column(name = "last_updated", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime lastUpdated;

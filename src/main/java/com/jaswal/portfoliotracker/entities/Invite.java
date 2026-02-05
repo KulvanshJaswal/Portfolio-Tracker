@@ -21,7 +21,7 @@ public class Invite {
     @ManyToOne
     @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
-    @Column(name = "invite_code", nullable = false, unique = true)
+    @Column(name = "invite_code", nullable = false, unique = true, length = 50)
     private String inviteCode;
     @ManyToOne
     @JoinColumn(name = "created_by")

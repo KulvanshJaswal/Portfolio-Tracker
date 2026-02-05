@@ -18,6 +18,6 @@ public class Portfolio {
     @ManyToOne()
     @JoinColumn(name = "created_by")
     private User createdBy;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 }

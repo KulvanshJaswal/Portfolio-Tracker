@@ -29,7 +29,7 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     @Column(name = "asset_type", nullable = false)
     private AssetType assetType;
-    @Column(name = "symbol", nullable = false)
+    @Column(name = "symbol", nullable = false, length = 10)
     private String symbol;
     @Column(name = "quantity", nullable = false)
     private BigDecimal quantity;
