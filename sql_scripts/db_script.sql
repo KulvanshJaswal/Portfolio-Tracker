@@ -68,8 +68,3 @@ CREATE TABLE invites (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id),
     FOREIGN KEY (created_by) REFERENCES users(user_id)
-<<<<<<< HEAD
-);
-=======
-);
->>>>>>> 36288aeb3af05ab0b8ab73636b272a7f5883fefd
