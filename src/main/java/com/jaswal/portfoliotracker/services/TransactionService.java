@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Transactional
 @Service
@@ -202,5 +203,16 @@ public class TransactionService {
         transaction.setPricePerUnit(pricePerUnit);
         transaction.setTimestamp(LocalDateTime.now());
         transactionRepository.save(transaction);
+    }
+
+    public List<Transaction> getTransactionsForPortfolio(Long portfolioId) {
+        Portfolio portfolio = portfolioRepository.findById(portfolioId)
+                .orElseThrow(() -> new IllegalArgumentException("Portfolio does not exist"));
+        return transactionRepository.findByPortfolio(portfolio);
+    }
+
+    public Transaction getTransactionById(Long transactionId) {
+        return transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new IllegalArgumentException("Transaction not found"));
     }
 }
