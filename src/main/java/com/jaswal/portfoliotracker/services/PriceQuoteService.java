@@ -10,6 +10,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 @Service
 @Transactional
@@ -26,7 +27,7 @@ public class PriceQuoteService {
         this.restClient = RestClient.create();
     }
 
-    public BigDecimal getPrice(String symbol){
+    public BigDecimal getCurrentPrice(String symbol){
         //Initial error checking
         PriceQuote priceQuote = priceQuoteRepository.findById(symbol).orElse(new PriceQuote());
         String response = restClient.get()
@@ -39,12 +40,20 @@ public class PriceQuoteService {
         BigDecimal price;
         try {
             Map<String, Object> jsonMap = objectMapper.readValue(response, Map.class);
+
             Map<String, Object> globalQuote = (Map<String, Object>) jsonMap.get("Global Quote");
+            if (globalQuote == null || globalQuote.isEmpty()) {
+                throw new IllegalArgumentException("Symbol not found: " + symbol);
+            }
+
             String priceString = (String) globalQuote.get("05. price");
             price = new BigDecimal(priceString);
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse price data", e);
         }
+
         //Setting new priceQuote object if not exists
         if(priceQuote.getSymbol() == null){
             priceQuote.setSource("Alpha Vantage");
@@ -55,5 +64,22 @@ public class PriceQuoteService {
         priceQuoteRepository.save(priceQuote);
 
         return price;
+    }
+
+    public void updateAll(){
+        //Find all price quote objects
+        List<PriceQuote> priceQuotes = priceQuoteRepository.findAll();
+
+        if(priceQuotes.isEmpty()){
+            throw new IllegalArgumentException("No positions exist");
+        }
+        for(PriceQuote priceQuote : priceQuotes){
+            getCurrentPrice(priceQuote.getSymbol());
+            try {
+                Thread.sleep(12000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }
