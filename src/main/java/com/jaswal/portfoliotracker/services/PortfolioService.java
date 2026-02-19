@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
@@ -59,7 +61,7 @@ public class PortfolioService {
         portfolioRepository.delete(portfolio);
     }
 
-    public BigDecimal calculatePrtfolioValue(Long portfolio_id){
+    public BigDecimal calculateProtfolioPnl(Long portfolio_id){
         BigDecimal sum = BigDecimal.ZERO;
         List<Position> positions = positionService.getPositionsForPortfolio(portfolio_id);
         for(Position position: positions){
@@ -68,6 +70,23 @@ public class PortfolioService {
         }
         return sum;
     }
+    public BigDecimal calculatePortfolioValue(Long portfolio_id) {
+        BigDecimal sum = BigDecimal.ZERO;
+        List<Position> positions = positionService.getPositionsForPortfolio(portfolio_id);
+        for (Position position : positions) {
+            BigDecimal current_price = priceQuoteService.getCurrentPrice(position.getSymbol());
+            BigDecimal quantity = position.getTotalQuantity();
+            sum = sum.add(quantity.multiply(current_price));
+
+        }
+        return sum;
+        }
+    public List<Portfolio> findUsersPortfolios(Long user_id) {
+        List<Portfolio> portfolios = portfolioRepository.findByCreatedBy_UserId(user_id);
+        return portfolios;
+    }
+
+
 }
 
 
