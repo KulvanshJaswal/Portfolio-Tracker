@@ -29,7 +29,7 @@ public class PortfolioService {
         this.positionService = positionService;
         this.priceQuoteService = priceQuoteService;
 
-        }
+    }
     public Portfolio createPortfolio(User user, String portfolioName){
         Portfolio portfolio = new Portfolio();
 
@@ -80,10 +80,9 @@ public class PortfolioService {
 
         }
         return sum;
-        }
+    }
     public List<Portfolio> findUsersPortfolios(Long user_id) {
-        List<Portfolio> portfolios = portfolioRepository.findByCreatedBy_UserId(user_id);
-        return portfolios;
+        return portfolioRepository.findByCreatedBy_UserId(user_id);
     }
 
 
