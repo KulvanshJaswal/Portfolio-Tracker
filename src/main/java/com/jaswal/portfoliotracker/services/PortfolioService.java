@@ -65,7 +65,7 @@ public class PortfolioService {
         BigDecimal sum = BigDecimal.ZERO;
         List<Position> positions = positionService.getPositionsForPortfolio(portfolio_id);
         for(Position position: positions){
-            BigDecimal current_price = priceQuoteService.getCurrentPrice(position.getSymbol());
+            BigDecimal current_price = priceQuoteService.getCurrentPrice(position.getSymbol(),position.getAssetType());
             sum = sum.add(positionService.getPositionPnl(position, current_price));
         }
         return sum;
@@ -74,7 +74,7 @@ public class PortfolioService {
         BigDecimal sum = BigDecimal.ZERO;
         List<Position> positions = positionService.getPositionsForPortfolio(portfolio_id);
         for (Position position : positions) {
-            BigDecimal current_price = priceQuoteService.getCurrentPrice(position.getSymbol());
+            BigDecimal current_price = priceQuoteService.getCurrentPrice(position.getSymbol(), position.getAssetType());
             BigDecimal quantity = position.getTotalQuantity();
             sum = sum.add(quantity.multiply(current_price));
 

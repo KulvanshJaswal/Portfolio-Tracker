@@ -1,6 +1,7 @@
 package com.jaswal.portfoliotracker.services;
 
 import com.jaswal.portfoliotracker.entities.PriceQuote;
+import com.jaswal.portfoliotracker.enums.AssetType;
 import com.jaswal.portfoliotracker.repositories.PriceQuoteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,11 +28,26 @@ public class PriceQuoteService {
         this.restClient = RestClient.create();
     }
 
-    public BigDecimal getCurrentPrice(String symbol){
-        //Initial error checking
+    public BigDecimal getCurrentPrice(String symbol, AssetType assetType){
+        //Initial setup
         PriceQuote priceQuote = priceQuoteRepository.findById(symbol).orElse(new PriceQuote());
+
+        String url;
+        String outerKey;
+        String priceKey;
+
+        if (assetType.equals(AssetType.STOCK)) {
+            url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=" + apiKey;
+            outerKey = "Global Quote";
+            priceKey = "05. price";
+        } else {
+            url = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + symbol + "&to_currency=USD&apikey=" + apiKey;
+            outerKey = "Realtime Currency Exchange Rate";
+            priceKey = "5. Exchange Rate";
+        }
+
         String response = restClient.get()
-                .uri("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=" + apiKey)
+                .uri(url)
                 .retrieve()
                 .body(String.class);
 
@@ -41,12 +57,12 @@ public class PriceQuoteService {
         try {
             Map<String, Object> jsonMap = objectMapper.readValue(response, Map.class);
 
-            Map<String, Object> globalQuote = (Map<String, Object>) jsonMap.get("Global Quote");
-            if (globalQuote == null || globalQuote.isEmpty()) {
+            Map<String, Object> dataMap = (Map<String, Object>) jsonMap.get(outerKey);
+            if (dataMap == null || dataMap.isEmpty()) {
                 throw new IllegalArgumentException("Symbol not found: " + symbol);
             }
 
-            String priceString = (String) globalQuote.get("05. price");
+            String priceString = (String) dataMap.get(priceKey);
             price = new BigDecimal(priceString);
         } catch (IllegalArgumentException e) {
             throw e;
@@ -58,6 +74,7 @@ public class PriceQuoteService {
         if(priceQuote.getSymbol() == null){
             priceQuote.setSource("Alpha Vantage");
             priceQuote.setSymbol(symbol);
+            priceQuote.setAssetType(assetType);
         }
         priceQuote.setPrice(price);
         priceQuote.setLastUpdated(LocalDateTime.now());
@@ -71,7 +88,7 @@ public class PriceQuoteService {
         List<PriceQuote> priceQuotes = priceQuoteRepository.findAll();
 
         for(PriceQuote priceQuote : priceQuotes){
-            getCurrentPrice(priceQuote.getSymbol());
+            getCurrentPrice(priceQuote.getSymbol(), priceQuote.getAssetType());
             try {
                 Thread.sleep(12000);
             } catch (InterruptedException e) {
