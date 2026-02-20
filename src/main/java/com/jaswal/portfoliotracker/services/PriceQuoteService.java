@@ -6,7 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -70,9 +70,6 @@ public class PriceQuoteService {
         //Find all price quote objects
         List<PriceQuote> priceQuotes = priceQuoteRepository.findAll();
 
-        if(priceQuotes.isEmpty()){
-            throw new IllegalArgumentException("No positions exist");
-        }
         for(PriceQuote priceQuote : priceQuotes){
             getCurrentPrice(priceQuote.getSymbol());
             try {
