@@ -21,7 +21,7 @@ public class Transaction {
     @Column(name = "transaction_id")
     private Long transactionId;
     @ManyToOne()
-    @JoinColumn(name = "portfolio_id")
+    @JoinColumn(name = "portfolio_id", nullable = false)
     private Portfolio portfolio;
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_type", nullable = false)
