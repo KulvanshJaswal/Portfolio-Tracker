@@ -17,24 +17,41 @@ import java.util.List;
 @Service
 public class TransactionService {
 
+    private static final BigDecimal MAX_PORTFOLIO_VALUE = new BigDecimal("1000000000.00");
     private final TransactionRepository transactionRepository;
     private final PositionRepository positionRepository;
     private final PortfolioRepository portfolioRepository;
+    private final PortfolioService portfolioService;
 
-    public TransactionService(TransactionRepository transactionRepository, PositionRepository positionRepository, PortfolioRepository portfolioRepository){
+    public TransactionService(
+            TransactionRepository transactionRepository,
+            PositionRepository positionRepository,
+            PortfolioRepository portfolioRepository,
+            PortfolioService portfolioService
+    ){
         this.transactionRepository = transactionRepository;
         this.positionRepository = positionRepository;
         this.portfolioRepository =portfolioRepository;
+        this.portfolioService = portfolioService;
     }
 
     public void deposit(Long portfolioId, BigDecimal amount){
         //Initial Error Checking
+        if(amount.scale() > 2){
+            throw new IllegalArgumentException("Amount can have a max of 2 decimal places");
+        }
         if(amount.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalArgumentException("The amount being deposited has to be greater than zero");
         }
         Portfolio portfolio = portfolioRepository.findById(portfolioId).orElseThrow(
                 () -> new IllegalArgumentException("Portfolio does not exist.")
         );
+        BigDecimal portfolioValue = portfolioService.calculatePortfolioValue(portfolioId);
+        if(amount.add(portfolioValue).compareTo(MAX_PORTFOLIO_VALUE) > 0){
+            throw new IllegalArgumentException(
+                    "Depositing $" + amount + " would cause the portfolio value to exceed the maximum of $1,000,000,000"
+            );
+        }
 
         //Make Transaction Record
         Transaction transaction = new Transaction();

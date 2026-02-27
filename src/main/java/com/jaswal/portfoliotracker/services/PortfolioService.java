@@ -61,7 +61,7 @@ public class PortfolioService {
         portfolioRepository.delete(portfolio);
     }
 
-    public BigDecimal calculateProtfolioPnl(Long portfolio_id){
+    public BigDecimal calculatePortfolioPnl(Long portfolio_id){
         BigDecimal sum = BigDecimal.ZERO;
         List<Position> positions = positionService.getPositionsForPortfolio(portfolio_id);
         for(Position position: positions){
