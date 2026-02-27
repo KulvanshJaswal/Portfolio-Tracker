@@ -22,7 +22,7 @@ public class Position {
     @ManyToOne()
     @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
-    @Column(name = "symbol", length = 10)
+    @Column(name = "symbol", nullable = false ,length = 10)
     private String symbol;
     @Enumerated(EnumType.STRING)
     @Column(name = "asset_type", nullable = false)
