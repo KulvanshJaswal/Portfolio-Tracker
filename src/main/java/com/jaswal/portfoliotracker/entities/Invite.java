@@ -24,7 +24,7 @@ public class Invite {
     @Column(name = "invite_code", nullable = false, unique = true, length = 50)
     private String inviteCode;
     @ManyToOne
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "created_by", nullable = false)
     private User createdBy;
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
