@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Portfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "portfolio_id")
+    @Column(name = "portfolio_id", nullable = false)
     private Long portfolioId;
     @ManyToOne()
     @JoinColumn(name = "created_by")
