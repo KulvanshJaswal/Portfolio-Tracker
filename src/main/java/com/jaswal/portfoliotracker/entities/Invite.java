@@ -19,7 +19,7 @@ public class Invite {
     @Column(name = "invite_id")
     private Long inviteId;
     @ManyToOne
-    @JoinColumn(name = "portfolio_id")
+    @JoinColumn(name = "portfolio_id", nullable = false)
     private Portfolio portfolio;
     @Column(name = "invite_code", nullable = false, unique = true, length = 50)
     private String inviteCode;
