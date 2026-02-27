@@ -65,6 +65,9 @@ public class PortfolioService {
         BigDecimal sum = BigDecimal.ZERO;
         List<Position> positions = positionService.getPositionsForPortfolio(portfolio_id);
         for(Position position: positions){
+            if (position.getSymbol().equals("CASH")){
+                continue;
+            }
             BigDecimal current_price = priceQuoteService.getCurrentPrice(position.getSymbol(),position.getAssetType());
             sum = sum.add(positionService.getPositionPnl(position, current_price));
         }
