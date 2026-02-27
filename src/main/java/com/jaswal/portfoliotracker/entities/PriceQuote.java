@@ -24,6 +24,7 @@ public class PriceQuote {
     private String source;
     @Column(name = "last_updated", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime lastUpdated;
+    @Enumerated(EnumType.STRING)
     @Column(name = "asset_type", nullable = false)
     private AssetType assetType;
 }
