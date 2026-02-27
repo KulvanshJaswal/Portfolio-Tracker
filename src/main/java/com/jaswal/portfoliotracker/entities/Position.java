@@ -20,7 +20,7 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long positionId;
     @ManyToOne()
-    @JoinColumn(name = "portfolio_id")
+    @JoinColumn(name = "portfolio_id", nullable = false)
     private Portfolio portfolio;
     @Column(name = "symbol", nullable = false ,length = 10)
     private String symbol;
