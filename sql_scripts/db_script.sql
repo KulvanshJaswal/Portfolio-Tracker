@@ -69,3 +69,4 @@ CREATE TABLE invites (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id),
     FOREIGN KEY (created_by) REFERENCES users(user_id)
+);
