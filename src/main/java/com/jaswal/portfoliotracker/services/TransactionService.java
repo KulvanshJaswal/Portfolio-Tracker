@@ -120,8 +120,11 @@ public class TransactionService {
 
     public void buy(Long portfolioId, String symbol, AssetType assetType, BigDecimal quantity, BigDecimal pricePerUnit){
         //Initial Error Checking
-        if(quantity.compareTo(BigDecimal.ZERO) <= 0){
+        if(quantity.compareTo(BigDecimal.ZERO) <= 0 || pricePerUnit.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalArgumentException("The amount being bought should be greater than 0");
+        }
+        if(quantity.scale() > 8 || pricePerUnit.scale() > 8){
+            throw new IllegalArgumentException("The quantity or price per unit has a max of 8 decimal places");
         }
         Portfolio portfolio = portfolioRepository.findById(portfolioId).orElseThrow(
                 () -> new IllegalArgumentException("The portfolio does not exist")
