@@ -89,6 +89,9 @@ public class TransactionService {
         if(amount.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalArgumentException("The amount being withdraw must be greater than zero");
         }
+        if(amount.scale() > 2){
+            throw new IllegalArgumentException("Amount must be a max of 2 decimal places");
+        }
         Portfolio portfolio = portfolioRepository.findById(portfolioId).orElseThrow(
                 () -> new IllegalArgumentException("Portfolio does not exist")
         );
@@ -181,8 +184,11 @@ public class TransactionService {
 
     public void sell(Long portfolioId, String symbol, AssetType assetType, BigDecimal quantity, BigDecimal pricePerUnit){
         //Initial error checking
-        if(quantity.compareTo(BigDecimal.ZERO) <= 0){
+        if(quantity.compareTo(BigDecimal.ZERO) <= 0 || pricePerUnit.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalArgumentException("The amount being sold should be greater than 0");
+        }
+        if(quantity.scale() > 8 || pricePerUnit.scale() > 8){
+            throw new IllegalArgumentException("The quantity or price per unit has a max of 8 decimal places");
         }
         Portfolio portfolio = portfolioRepository.findById(portfolioId).orElseThrow(
                 () -> new IllegalArgumentException("The portfolio does not exist")
