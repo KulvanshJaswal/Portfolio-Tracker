@@ -1,6 +1,7 @@
 package com.jaswal.portfoliotracker.services;
 
 
+import com.jaswal.portfoliotracker.entities.Invite;
 import com.jaswal.portfoliotracker.entities.Membership;
 import com.jaswal.portfoliotracker.entities.Portfolio;
 import com.jaswal.portfoliotracker.entities.User;
@@ -11,7 +12,10 @@ import com.jaswal.portfoliotracker.repositories.PortfolioRepository;
 import com.jaswal.portfoliotracker.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MembershipService {
@@ -105,6 +109,100 @@ public class MembershipService {
         if (userRole == Role.ADMIN) return true;
         if (userRole == Role.MEMBER) return requiredRole != Role.ADMIN;
         return requiredRole == Role.VISITOR;
+    }
+    private String generateInvitePassword(){
+        String code;
+        do {
+            code = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        }while(inviteRepository.findByInviteCode(code).isPresent());
+        return code;
+    }
+    public Invite createInvite(Long portfoliioId, Long userId, Integer daysForExpiry, Integer maxUses,Role userRole){
+        Invite invite = new Invite();
+        invite.setCreatedBy(userRepository.findById(userId).orElseThrow(()
+                ->new RuntimeException("Must be a user of the Portfolio to send an invite")));
+        invite.setPortfolio(portfolioRepository.findById(portfoliioId).orElseThrow(()
+                ->new RuntimeException("Must have a valid portfolio to invite a user to.")));
+        invite.setInviteCode(generateInvitePassword());
+        invite.setRole(userRole);
+        invite.setMaxUses(maxUses);
+        LocalDateTime timeNow = LocalDateTime.now();
+        invite.setCreatedAt(timeNow);
+        invite.setExpiresAt(timeNow.plusDays(daysForExpiry));
+        invite.setCurrentUses(0);
+        return inviteRepository.save(invite);
+
+    }
+
+    public Membership redeemInvite(String inviteCode, Long userId) {
+        // Validate inputs
+        if (inviteCode == null || inviteCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("Invite code cannot be empty");
+        }
+        if (userId == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        }
+
+        // Find invite
+        Invite invite = inviteRepository.findByInviteCode(inviteCode)
+                .orElseThrow(() -> new RuntimeException("Invalid invite code"));
+
+        // Check if invite is still valid
+        if (invite.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Invite code has expired");
+        }
+
+        // Check if invite has uses remaining
+        if (invite.getCurrentUses() >= invite.getMaxUses()) {
+            throw new IllegalArgumentException("Invite code has reached maximum uses");
+        }
+
+        // Check if user exists
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+
+        // Check if user is already a member
+        if (membershipRepository.findByUser_UserIdAndPortfolio_PortfolioId(
+                userId, invite.getPortfolio().getPortfolioId()).isPresent()) {
+            throw new IllegalArgumentException("User is already a member of this portfolio");
+        }
+
+        Membership membership = new Membership();
+        membership.setUser(user);
+        membership.setPortfolio(invite.getPortfolio());
+        membership.setRole(invite.getRole());
+
+        invite.setCurrentUses(invite.getCurrentUses() + 1);
+        inviteRepository.save(invite);
+
+        return membershipRepository.save(membership);
+    }
+
+    public List<Invite> getPortfolioInvites(Long portfolioId) {
+        if (!portfolioRepository.existsById(portfolioId)) {
+            throw new RuntimeException("Portfolio not found with id: " + portfolioId);
+        }
+        return inviteRepository.findByPortfolio_PortfolioId(portfolioId);
+    }
+
+
+    public List<Invite> getActiveInvites(Long portfolioId) {
+        if (!portfolioRepository.existsById(portfolioId)) {
+            throw new RuntimeException("Portfolio not found with id: " + portfolioId);
+        }
+        return inviteRepository.findByPortfolio_PortfolioIdAndExpiresAtAfter(
+                portfolioId, LocalDateTime.now());
+    }
+
+    public void deleteInvite(Long inviteId) {
+        Invite invite = inviteRepository.findById(inviteId)
+                .orElseThrow(() -> new RuntimeException("Invite not found with id: " + inviteId));
+        inviteRepository.delete(invite);
+    }
+
+    public Invite getInviteByCode(String inviteCode) {
+        return inviteRepository.findByInviteCode(inviteCode)
+                .orElseThrow(() -> new RuntimeException("Invite not found with code: " + inviteCode));
     }
 
 }
