@@ -88,6 +88,14 @@ public class PortfolioService {
         return portfolioRepository.findByCreatedBy_UserId(user_id);
     }
 
+    public Portfolio findPortfolioByName(Long userId, String portfolioName){
+        return portfolioRepository.findByCreatedBy_UserIdAndName(userId, portfolioName)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Portfolio not found with id" + id)
+                );
+
+    }
+
 
 }
 
