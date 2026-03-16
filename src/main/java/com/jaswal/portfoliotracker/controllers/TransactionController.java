@@ -3,6 +3,7 @@ package com.jaswal.portfoliotracker.controllers;
 import com.jaswal.portfoliotracker.entities.Position;
 import com.jaswal.portfoliotracker.enums.AssetType;
 import com.jaswal.portfoliotracker.services.PositionService;
+import com.jaswal.portfoliotracker.services.PriceQuoteService;
 import com.jaswal.portfoliotracker.services.TransactionService;
 import lombok.*;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,16 @@ public class TransactionController {
 
     private final TransactionService transactionService;
     private final PositionService positionService;
+    private final PriceQuoteService priceQuoteService;
 
-    public TransactionController(TransactionService transactionService, PositionService positionService) {
+    public TransactionController(
+            TransactionService transactionService,
+            PositionService positionService,
+            PriceQuoteService priceQuoteService
+    ) {
         this.transactionService = transactionService;
         this.positionService = positionService;
+        this.priceQuoteService = priceQuoteService;
     }
 
     @PostMapping("/deposit")
@@ -60,10 +67,11 @@ public class TransactionController {
             @PathVariable Long portfolioId,
             @RequestBody Request request
     ){
+        BigDecimal pricePerUnit = priceQuoteService.getCurrentPrice(request.getSymbol(), request.getAssetType());
         transactionService.buy(
                 portfolioId, request.getSymbol(),
                 request.getAssetType(), request.getQuantity(),
-                request.getPricePerUnit()
+                pricePerUnit
         );
 
         return List.of(positionService.getPositionBySymbol(portfolioId, request.symbol),
@@ -76,10 +84,11 @@ public class TransactionController {
             @PathVariable Long portfolioId,
             @RequestBody Request request
     ){
-        transactionService.sell(
+        BigDecimal pricePerUnit = priceQuoteService.getCurrentPrice(request.getSymbol(), request.getAssetType());
+        transactionService.buy(
                 portfolioId, request.getSymbol(),
                 request.getAssetType(), request.getQuantity(),
-                request.getPricePerUnit()
+                pricePerUnit
         );
 
         return List.of(positionService.getPositionBySymbol(portfolioId, request.symbol),
