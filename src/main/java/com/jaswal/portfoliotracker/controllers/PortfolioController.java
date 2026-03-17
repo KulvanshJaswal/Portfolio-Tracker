@@ -31,4 +31,9 @@ public class PortfolioController {
         User user = userService.getUser(userId);
         return portfolioService.createPortfolio(user, request.get("name"));
     }
+
+    @GetMapping("")
+    public List<Portfolio> getAllPortfoliosForUsers(@PathVariable Long userId){
+        return portfolioService.findUsersPortfolios(userId);
+    }
 }
