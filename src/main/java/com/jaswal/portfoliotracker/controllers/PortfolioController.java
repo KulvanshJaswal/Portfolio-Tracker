@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/users/{userId}/portfolios")
 public class PortfolioController {
 
     private final PortfolioService portfolioService;
@@ -23,7 +22,7 @@ public class PortfolioController {
         this.userService =  userService;
     }
 
-    @PostMapping("")
+    @PostMapping("/api/users/{userId}/portfolios")
     public Portfolio createPortfolio(
             @PathVariable Long userId,
             @RequestBody Map<String, String> request
@@ -32,8 +31,12 @@ public class PortfolioController {
         return portfolioService.createPortfolio(user, request.get("name"));
     }
 
-    @GetMapping("")
+    @GetMapping("/api/users/{userId}/portfolios")
     public List<Portfolio> getAllPortfoliosForUsers(@PathVariable Long userId){
         return portfolioService.findUsersPortfolios(userId);
+    }
+    @GetMapping("/api/portfolios/{portfolioId}")
+    public Portfolio getPortfolio(@PathVariable Long portfolioId){
+        return portfolioService.getPortfolio(portfolioId);
     }
 }
