@@ -23,4 +23,24 @@ public class UserController {
                 request.get("email")
         );
     }
+
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+    }
+
+    @GetMapping("/{userId}")
+    public User getUser(@PathVariable Long userId) {
+        return userService.getUser(userId);
+    }
+
+    @PutMapping("/{userId}/email")
+    public User updateUserEmail(@PathVariable Long userId, @RequestBody Map<String, String> request) {
+        return userService.updateEmail(userId, request.get("email"));
+    }
+
+    @PutMapping("/{userId}/username")
+    public User updateUserUsername(@PathVariable Long userId, @RequestBody Map<String, String> request) {
+        return userService.updateUser(userId, request.get("username"));
+    }
 }

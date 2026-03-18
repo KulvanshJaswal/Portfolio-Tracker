@@ -8,10 +8,12 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+    private final PortfolioService portfolioService;
     UserRepository userRepository;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, PortfolioService portfolioService){
         this.userRepository = userRepository;
+        this.portfolioService = portfolioService;
     }
 
     public User createUsername(String username, String email){
@@ -26,12 +28,15 @@ public class UserService {
 
     public void deleteUser(Long user_id){
         User user = userRepository.findById(user_id).orElseThrow(()->
-                new RuntimeException("The user with the id" + user_id + "does not exist"));
+                new RuntimeException("The user with the id " + user_id + " does not exist"));
+        if(!portfolioService.findUsersPortfolios(user_id).isEmpty()) {
+            throw new IllegalStateException("Cannot delete user with existing portfolios");
+        }
         userRepository.delete(user);
     }
     public User getUser(Long user_id){
         return userRepository.findById(user_id).orElseThrow(() ->
-                new RuntimeException("The user with the id" + user_id + "does not exist"));
+                new RuntimeException("The user with the id " + user_id + " does not exist"));
     }
 
     public User updateUser(Long user_id, String username) {
@@ -40,7 +45,10 @@ public class UserService {
     }
 
         User user = userRepository.findById(user_id).orElseThrow(()->
-                new RuntimeException("The user with the id" + user_id + "does mot exist"));
+                new RuntimeException("The user with the id " + user_id + " does mot exist"));
+        if(usernameExists(username)){
+            throw new RuntimeException("The user with the username " + username + " already exists");
+        }
         user.setUsername(username);
         return userRepository.save(user);
     }
@@ -50,7 +58,10 @@ public class UserService {
             throw new IllegalArgumentException("The email can't be empty" + email);
         }
         User user = userRepository.findById(user_id).orElseThrow(() ->
-                new RuntimeException("The user with the id" + user_id + "does mot exist"));
+                new RuntimeException("The user with the id " + user_id + " does mot exist"));
+        if(emailExists(email)){
+            throw new RuntimeException("There exists a user with the email " + email);
+        }
         user.setEmail(email);
         return userRepository.save(user);
     }

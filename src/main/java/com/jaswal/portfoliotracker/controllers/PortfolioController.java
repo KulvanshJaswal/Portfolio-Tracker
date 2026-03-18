@@ -2,12 +2,10 @@ package com.jaswal.portfoliotracker.controllers;
 
 import com.jaswal.portfoliotracker.entities.Portfolio;
 import com.jaswal.portfoliotracker.entities.User;
-import com.jaswal.portfoliotracker.repositories.UserRepository;
 import com.jaswal.portfoliotracker.services.PortfolioService;
 import com.jaswal.portfoliotracker.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.sampled.Port;
 import java.util.List;
 import java.util.Map;
 
@@ -35,8 +33,19 @@ public class PortfolioController {
     public List<Portfolio> getAllPortfoliosForUsers(@PathVariable Long userId){
         return portfolioService.findUsersPortfolios(userId);
     }
+
     @GetMapping("/api/portfolios/{portfolioId}")
     public Portfolio getPortfolio(@PathVariable Long portfolioId){
         return portfolioService.getPortfolio(portfolioId);
+    }
+
+    @PutMapping("/api/portfolios/{portfolioId}")
+    public Portfolio updatePortfolio(@PathVariable Long portfolioId, @RequestBody Map<String, String> request){
+        return portfolioService.changePortfolioName(portfolioId, request.get("name"));
+    }
+
+    @DeleteMapping("/api/portfolios/{portfolioId}")
+    public void deletePortfolio(@PathVariable Long portfolioId){
+        portfolioService.deletePortfolio(portfolioId);
     }
 }
