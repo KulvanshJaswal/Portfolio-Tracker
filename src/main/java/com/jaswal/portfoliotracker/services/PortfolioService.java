@@ -68,11 +68,12 @@ public class PortfolioService {
             if (position.getSymbol().equals("CASH")){
                 continue;
             }
-            BigDecimal current_price = priceQuoteService.getCurrentPrice(position.getSymbol(),position.getAssetType());
+            BigDecimal current_price = priceQuoteService.getCachedPrice(position.getSymbol(), position.getAssetType());  // ← Changed
             sum = sum.add(positionService.getPositionPnl(position, current_price));
         }
         return sum;
     }
+
     public BigDecimal calculatePortfolioValue(Long portfolio_id) {
         BigDecimal sum = BigDecimal.ZERO;
         List<Position> positions = positionService.getPositionsForPortfolio(portfolio_id);
@@ -81,10 +82,9 @@ public class PortfolioService {
                 sum = sum.add(position.getTotalQuantity());
                 continue;
             }
-            BigDecimal current_price = priceQuoteService.getCurrentPrice(position.getSymbol(), position.getAssetType());
+            BigDecimal current_price = priceQuoteService.getCachedPrice(position.getSymbol(), position.getAssetType());  // ← Changed
             BigDecimal quantity = position.getTotalQuantity();
             sum = sum.add(quantity.multiply(current_price));
-
         }
         return sum;
     }

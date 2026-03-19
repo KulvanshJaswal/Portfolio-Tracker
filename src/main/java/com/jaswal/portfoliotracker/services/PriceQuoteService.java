@@ -5,6 +5,7 @@ import com.jaswal.portfoliotracker.enums.AssetType;
 import com.jaswal.portfoliotracker.repositories.PriceQuoteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +27,17 @@ public class PriceQuoteService {
     public PriceQuoteService(PriceQuoteRepository priceQuoteRepository){
         this.priceQuoteRepository = priceQuoteRepository;
         this.restClient = RestClient.create();
+    }
+
+    public BigDecimal getCachedPrice(String symbol, AssetType assetType) {
+        if (symbol.equals("CASH")) {
+            return BigDecimal.ONE;
+        }
+
+        PriceQuote quote = priceQuoteRepository.findById(symbol)
+                .orElseThrow(() -> new IllegalArgumentException("No cached price for " + symbol));
+
+        return quote.getPrice();
     }
 
     public BigDecimal getCurrentPrice(String symbol, AssetType assetType){
@@ -83,16 +95,16 @@ public class PriceQuoteService {
         return price;
     }
 
-    public void updateAll(){
-        //Find all price quote objects
-        List<PriceQuote> priceQuotes = priceQuoteRepository.findAll();
+    @Scheduled(cron = "0 30 16 * * MON-FRI", zone = "America/New_York")
+    public void updateAllPrices() {
+        List<PriceQuote> allQuotes = priceQuoteRepository.findAll();
 
-        for(PriceQuote priceQuote : priceQuotes){
-            getCurrentPrice(priceQuote.getSymbol(), priceQuote.getAssetType());
+        for (PriceQuote quote : allQuotes) {
             try {
-                Thread.sleep(12000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                getCurrentPrice(quote.getSymbol(), quote.getAssetType());
+                System.out.println("Updated " + quote.getSymbol());
+            } catch (Exception e) {
+                System.err.println("Failed to update " + quote.getSymbol() + ": " + e.getMessage());
             }
         }
     }
