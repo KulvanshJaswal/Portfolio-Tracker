@@ -68,24 +68,36 @@ public class PortfolioService {
             if (position.getSymbol().equals("CASH")){
                 continue;
             }
-            BigDecimal current_price = priceQuoteService.getCurrentPrice(position.getSymbol(),position.getAssetType());
+            BigDecimal current_price = priceQuoteService.getCachedPrice(position.getSymbol(), position.getAssetType());  // ← Changed
             sum = sum.add(positionService.getPositionPnl(position, current_price));
         }
         return sum;
     }
+
     public BigDecimal calculatePortfolioValue(Long portfolio_id) {
         BigDecimal sum = BigDecimal.ZERO;
         List<Position> positions = positionService.getPositionsForPortfolio(portfolio_id);
         for (Position position : positions) {
-            BigDecimal current_price = priceQuoteService.getCurrentPrice(position.getSymbol(), position.getAssetType());
+            if (position.getSymbol().equals("CASH")){
+                sum = sum.add(position.getTotalQuantity());
+                continue;
+            }
+            BigDecimal current_price = priceQuoteService.getCachedPrice(position.getSymbol(), position.getAssetType());  // ← Changed
             BigDecimal quantity = position.getTotalQuantity();
             sum = sum.add(quantity.multiply(current_price));
-
         }
         return sum;
     }
     public List<Portfolio> findUsersPortfolios(Long user_id) {
         return portfolioRepository.findByCreatedBy_UserId(user_id);
+    }
+
+    public Portfolio findPortfolioByName(Long userId, String portfolioName){
+        return portfolioRepository.findByCreatedBy_UserIdAndName(userId, portfolioName)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Portfolio not found with id" + id)
+                );
+
     }
 
 
