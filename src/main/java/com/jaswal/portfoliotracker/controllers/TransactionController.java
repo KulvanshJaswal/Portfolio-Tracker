@@ -85,7 +85,7 @@ public class TransactionController {
             @RequestBody Request request
     ){
         BigDecimal pricePerUnit = priceQuoteService.getCurrentPrice(request.getSymbol(), request.getAssetType());
-        transactionService.buy(
+        transactionService.sell(
                 portfolioId, request.getSymbol(),
                 request.getAssetType(), request.getQuantity(),
                 pricePerUnit
