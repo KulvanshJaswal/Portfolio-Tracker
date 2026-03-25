@@ -67,7 +67,7 @@ public class MembershipController {
         return membershipService.getUserMemberships(userId);
     }
 
-    GetMapping
+    
 
 
 
