@@ -1,5 +1,6 @@
 package com.jaswal.portfoliotracker.controllers;
 
+import com.jaswal.portfoliotracker.entities.Invite;
 import com.jaswal.portfoliotracker.entities.Membership;
 import com.jaswal.portfoliotracker.enums.Role;
 import com.jaswal.portfoliotracker.services.MembershipService;
@@ -57,17 +58,32 @@ public class MembershipController {
         return membershipService.updateMemberRole(portfolioId,userId,request.getRole());
 
     }
-
-    @GetMapping("/api/portfolios/{portfolioId}")
-    public List<Membership> getPortfolioMembers(@PathVariable Long portfolioId){
-        return membershipService.getPortfolioMembers(portfolioId);
-    }
-    @GetMapping("/api/portfolios/{userId}")
+    @GetMapping("/api/users/{userId/")
     public List<Membership> getUsersMemberships(@PathVariable Long userId){
         return membershipService.getUserMemberships(userId);
     }
 
-    
+
+    @Data
+    @NoArgsConstructor
+    public static class createInviteRequest{
+        private Long userId;
+        private Integer daysForExpiry;
+        private Integer maxUses;
+        private Role userRole;
+
+    }
+
+    @PostMapping("/api/portfolios/{portfolioId}")
+    public Invite createInvite(@PathVariable Long portfolioId, @RequestBody createInviteRequest request){
+        return membershipService.createInvite(portfolioId,
+                request.getUserId(),
+                request.getDaysForExpiry(),
+                request.getMaxUses(),
+                request.getUserRole());
+    }
+
+
 
 
 
