@@ -1,7 +1,9 @@
 package com.jaswal.portfoliotracker.services;
 
+import com.jaswal.portfoliotracker.entities.ApiCallLog;
 import com.jaswal.portfoliotracker.entities.PriceQuote;
 import com.jaswal.portfoliotracker.enums.AssetType;
+import com.jaswal.portfoliotracker.repositories.ApiCallLogRepository;
 import com.jaswal.portfoliotracker.repositories.PriceQuoteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,14 +20,19 @@ import java.util.Map;
 @Transactional
 public class PriceQuoteService {
 
+    private final ApiCallLogRepository apiCallLogRepository;
     @Value("${alphavantage.api.key}")
     private String apiKey;
     private final RestClient restClient;
     private final PriceQuoteRepository priceQuoteRepository;
 
 
-    public PriceQuoteService(PriceQuoteRepository priceQuoteRepository){
+    public PriceQuoteService(
+            PriceQuoteRepository priceQuoteRepository,
+            ApiCallLogRepository apiCallLogRepository
+    ){
         this.priceQuoteRepository = priceQuoteRepository;
+        this.apiCallLogRepository = apiCallLogRepository;
         this.restClient = RestClient.create();
     }
 
@@ -48,6 +55,14 @@ public class PriceQuoteService {
         String outerKey;
         String priceKey;
 
+        if (apiCallLogRepository.countByApiNameAndAssetTypeAndCallTimestampAfter(
+                "Alpha Vantage",
+                assetType,
+                LocalDateTime.now().minusHours(24)
+        ) >= 25) {
+            throw new IllegalArgumentException("API call rate exceeds");
+        }
+
         if (assetType.equals(AssetType.STOCK)) {
             url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=" + apiKey;
             outerKey = "Global Quote";
@@ -62,6 +77,13 @@ public class PriceQuoteService {
                 .uri(url)
                 .retrieve()
                 .body(String.class);
+
+        ApiCallLog apiCallLog  = new ApiCallLog();
+        apiCallLog.setApiName("Alpha Vantage");
+        apiCallLog.setCallTimestamp(LocalDateTime.now());
+        apiCallLog.setAssetType(assetType);
+        apiCallLog.setSymbol(symbol);
+        apiCallLogRepository.save(apiCallLog);
 
         //Fetching price
         ObjectMapper objectMapper = new ObjectMapper();
