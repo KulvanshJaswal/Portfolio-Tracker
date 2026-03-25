@@ -28,7 +28,6 @@ public class MembershipController {
 
 
     @Data
-    @AllArgsConstructor
     @NoArgsConstructor
 
     public static class addMemberRequest {
@@ -39,6 +38,31 @@ public class MembershipController {
     public Membership addMember(@PathVariable Long portfolioId, @RequestBody addMemberRequest request){
         return membershipService.addMember(portfolioId,request.getUserId(),request.getRole());
     }
+    @DeleteMapping("/api/portfolios/{portfolioId}/members/{userId}")
+    public void removeMember(@PathVariable Long portfolioId, @PathVariable Long userId){
+        membershipService.removeMember(portfolioId, userId);
+
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class updateMemberRequest{
+        private Role role;
+    }
+
+    @PutMapping("/api/portfolios/{portfolioId}/members/{userId}")
+    public Membership updateMembership(@PathVariable Long portfolioId,
+                                       @PathVariable Long userId,
+                                       @RequestBody updateMemberRequest request ){
+        return membershipService.updateMemberRole(portfolioId,userId,request.getRole());
+
+    }
+
+    @GetMapping("/api/portfolios/{portfolioId}")
+    public List<Membership> getPortfolioMembers(@PathVariable Long portfolioId){
+        return membershipService.getPortfolioMembers(portfolioId);
+    }
+
 
 
 
