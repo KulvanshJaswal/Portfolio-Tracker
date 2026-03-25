@@ -62,6 +62,13 @@ public class MembershipController {
     public List<Membership> getPortfolioMembers(@PathVariable Long portfolioId){
         return membershipService.getPortfolioMembers(portfolioId);
     }
+    @GetMapping("/api/portfolios/{userId}")
+    public List<Membership> getUsersMemberships(@PathVariable Long userId){
+        return membershipService.getUserMemberships(userId);
+    }
+
+    GetMapping
+
 
 
 
