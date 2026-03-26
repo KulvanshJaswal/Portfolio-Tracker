@@ -39,6 +39,10 @@
 - POST /api/invites/{inviteCode}/redeem/{userId} - Redeem an invite
 - DELETE /api/invites/{inviteId} - Delete an invite
 - GET /api/invites/{inviteCode} - Get invite by code
+
+## Prices
+- GET /api/prices/{symbol}/live/{assetType} - Get live price (uses Alpha Vantage API call)
+- GET /api/prices/{symbol}/cached/{assetType} - Get cached price (no API call)
 - 
 ## Features
 ✅ Live stock prices via Alpha Vantage API (stocks and crypto)
