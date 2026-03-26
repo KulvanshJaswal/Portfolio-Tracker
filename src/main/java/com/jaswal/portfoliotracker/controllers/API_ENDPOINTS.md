@@ -25,9 +25,21 @@
 - GET /api/portfolios/{portfolioId}/positions/{symbol} - Get specific position by symbol
 - GET /api/portfolios/{portfolioId}/positions/{symbol}/pnl - Get position profit/loss (with live price)
 
-## Membership
-GET /api/portfolios/{portfolioId}/members - Get portfolio id for members
-POST /api/portfolios/{portfolioId}/members - Creat a member in a portfolio
+## Memberships
+- GET /api/portfolios/{portfolioId}/members - Get all members of a portfolio
+- POST /api/portfolios/{portfolioId}/members - Add a member to a portfolio
+- DELETE /api/portfolios/{portfolioId}/members/{userId} - Remove a member
+- PUT /api/portfolios/{portfolioId}/members/{userId} - Update a member's role
+- GET /api/users/{userId}/memberships - Get all memberships for a user
+
+## Invites
+- POST /api/portfolios/{portfolioId}/invites - Create an invite
+- GET /api/portfolios/{portfolioId}/invites - Get all invites for a portfolio
+- GET /api/portfolios/{portfolioId}/invites/active - Get active invites only
+- POST /api/invites/{inviteCode}/redeem/{userId} - Redeem an invite
+- DELETE /api/invites/{inviteId} - Delete an invite
+- GET /api/invites/{inviteCode} - Get invite by code
+- 
 ## Features
 ✅ Live stock prices via Alpha Vantage API (stocks and crypto)
 ✅ Real-time P&L calculations
