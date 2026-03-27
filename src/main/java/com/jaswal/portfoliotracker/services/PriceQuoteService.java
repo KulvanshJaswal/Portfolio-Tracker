@@ -1,9 +1,7 @@
 package com.jaswal.portfoliotracker.services;
 
-import com.jaswal.portfoliotracker.entities.ApiCallLog;
 import com.jaswal.portfoliotracker.entities.PriceQuote;
 import com.jaswal.portfoliotracker.enums.AssetType;
-import com.jaswal.portfoliotracker.repositories.ApiCallLogRepository;
 import com.jaswal.portfoliotracker.repositories.PriceQuoteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,25 +12,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Service
 @Transactional
 public class PriceQuoteService {
 
-    private final ApiCallLogRepository apiCallLogRepository;
     @Value("${alphavantage.api.key}")
     private String apiKey;
     private final RestClient restClient;
     private final PriceQuoteRepository priceQuoteRepository;
+    private final Map<AssetType, Queue<LocalDateTime>> apiCalls = new HashMap<>();
 
 
-    public PriceQuoteService(
-            PriceQuoteRepository priceQuoteRepository,
-            ApiCallLogRepository apiCallLogRepository
-    ){
+    public PriceQuoteService(PriceQuoteRepository priceQuoteRepository){
         this.priceQuoteRepository = priceQuoteRepository;
-        this.apiCallLogRepository = apiCallLogRepository;
         this.restClient = RestClient.create();
     }
 
@@ -48,20 +42,15 @@ public class PriceQuoteService {
     }
 
     public BigDecimal getCurrentPrice(String symbol, AssetType assetType){
-        //Initial setup
         PriceQuote priceQuote = priceQuoteRepository.findById(symbol).orElse(new PriceQuote());
+
+        if (apiCalls.get(assetType).size() >= 25){
+            throw new IllegalArgumentException("Max api calls reached");
+        }
 
         String url;
         String outerKey;
         String priceKey;
-
-        if (apiCallLogRepository.countByApiNameAndAssetTypeAndCallTimestampAfter(
-                "Alpha Vantage",
-                assetType,
-                LocalDateTime.now().minusHours(24)
-        ) >= 25) {
-            throw new IllegalArgumentException("API call rate exceeds");
-        }
 
         if (assetType.equals(AssetType.STOCK)) {
             url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=" + apiKey;
@@ -78,12 +67,8 @@ public class PriceQuoteService {
                 .retrieve()
                 .body(String.class);
 
-        ApiCallLog apiCallLog  = new ApiCallLog();
-        apiCallLog.setApiName("Alpha Vantage");
-        apiCallLog.setCallTimestamp(LocalDateTime.now());
-        apiCallLog.setAssetType(assetType);
-        apiCallLog.setSymbol(symbol);
-        apiCallLogRepository.save(apiCallLog);
+        apiCalls.putIfAbsent(assetType, new ArrayDeque<>());
+        apiCalls.get(assetType).add(LocalDateTime.now());
 
         //Fetching price
         ObjectMapper objectMapper = new ObjectMapper();
@@ -127,6 +112,17 @@ public class PriceQuoteService {
                 System.out.println("Updated " + quote.getSymbol());
             } catch (Exception e) {
                 System.err.println("Failed to update " + quote.getSymbol() + ": " + e.getMessage());
+            }
+        }
+    }
+
+    @Scheduled(cron = "0 0 * * * *")
+    public void apiCallCleanUp(){
+        for (AssetType assetType : apiCalls.keySet()) {
+            Queue<LocalDateTime> queue = apiCalls.get(assetType);
+
+            while(!queue.isEmpty() && queue.peek().isBefore(LocalDateTime.now().minusHours(24))){
+                queue.poll();
             }
         }
     }

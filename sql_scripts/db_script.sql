@@ -79,12 +79,3 @@ CREATE TABLE api_call_logs (
    call_timestamp TIMESTAMP NOT NULL,
    INDEX idx_api_asset_timestamp (api_name, asset_type, call_timestamp)
 );
-
-CREATE TABLE api_call_logs (
-    log_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    api_name VARCHAR(50) NOT NULL,
-    asset_type ENUM('STOCK', 'CRYPTO') NOT NULL,
-    symbol VARCHAR(10) NOT NULL,
-    call_timestamp TIMESTAMP NOT NULL,
-    INDEX idx_api_asset_timestamp (api_name, asset_type, call_timestamp)
-);
