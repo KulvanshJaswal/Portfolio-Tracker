@@ -5,7 +5,8 @@ USE portfolio_tracker;
 CREATE TABLE users(
 	user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
 	username VARCHAR(50) NOT NULL UNIQUE,
-	email VARCHAR(100) NOT NULL UNIQUE
+	email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE portfolios(

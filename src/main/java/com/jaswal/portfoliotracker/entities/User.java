@@ -1,5 +1,6 @@
 package com.jaswal.portfoliotracker.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,4 +22,7 @@ public class User {
     private String username;
     @Column(name = "email", nullable = false, length = 100)
     private String email;
+    @Column(name="password", nullable = false, length = 60)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
 }

@@ -20,8 +20,18 @@ public class UserController {
     public User createUser(@RequestBody Map<String, String> request) {
         return userService.createUsername(
                 request.get("username"),
-                request.get("email")
+                request.get("email"),
+                request.get("password")
         );
+    }
+
+    @PostMapping("/login")
+    public User login(@RequestBody Map<String, String> request) {
+        String username = request.get("username");
+        String email = request.get("email");
+        String password = request.get("password");
+
+        return userService.checkPassword(username, email, password);
     }
 
     @DeleteMapping("/{userId}")

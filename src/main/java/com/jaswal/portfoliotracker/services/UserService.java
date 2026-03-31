@@ -2,6 +2,7 @@ package com.jaswal.portfoliotracker.services;
 
 import com.jaswal.portfoliotracker.entities.User;
 import com.jaswal.portfoliotracker.repositories.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,19 +12,45 @@ public class UserService {
     private final PortfolioService portfolioService;
     UserRepository userRepository;
 
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     public UserService(UserRepository userRepository, PortfolioService portfolioService){
         this.userRepository = userRepository;
         this.portfolioService = portfolioService;
     }
 
-    public User createUsername(String username, String email){
+    public User createUsername(String username, String email, String password){
+        if(usernameExists(username)){
+            throw new RuntimeException("The user with the username " + username + " already exists");
+        }
         User user = new User();
 
         user.setUsername(username);
 
         user.setEmail(email);
 
+        user.setPassword(encoder.encode(password));
         return userRepository.save(user);
+    }
+
+    public User checkPassword(String username, String email, String password){
+        Optional<User> user;
+        if(username != null){
+            user = userRepository.findByUsername(username);
+        } else if(email != null){
+            user = userRepository.findByEmail(email);
+        } else {
+            throw new IllegalArgumentException("Username and email cannot be empty");
+        }
+
+        if(user.isEmpty()){
+            throw new RuntimeException("The username or email address is invalid");
+        }
+
+        if(encoder.matches(password, user.get().getPassword())){
+            return user.get();
+        }
+        throw new RuntimeException("Invalid password");
     }
 
     public void deleteUser(Long user_id){
