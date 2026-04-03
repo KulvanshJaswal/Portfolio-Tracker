@@ -4,6 +4,7 @@ import com.jaswal.portfoliotracker.entities.Portfolio;
 import com.jaswal.portfoliotracker.entities.User;
 import com.jaswal.portfoliotracker.services.PortfolioService;
 import com.jaswal.portfoliotracker.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class PortfolioController {
     private final PortfolioService portfolioService;
     private final UserService userService;
 
-    public PortfolioController(PortfolioService portfolioService,  UserService userService) {
+    public PortfolioController(PortfolioService portfolioService, UserService userService) {
         this.portfolioService = portfolioService;
         this.userService =  userService;
     }
@@ -29,8 +30,9 @@ public class PortfolioController {
         return portfolioService.createPortfolio(user, request.get("name"));
     }
 
-    @GetMapping("/api/users/{userId}/portfolios")
-    public List<Portfolio> getAllPortfoliosForUsers(@PathVariable Long userId){
+    @GetMapping("/api/portfolios")
+    public List<Portfolio> getAllPortfoliosForUsers(HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
         return portfolioService.findUsersPortfolios(userId);
     }
 

@@ -1,5 +1,6 @@
 package com.jaswal.portfoliotracker.controllers;
 
+import com.jaswal.portfoliotracker.components.JwtUtil;
 import com.jaswal.portfoliotracker.entities.User;
 import com.jaswal.portfoliotracker.services.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,12 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final JwtUtil jwtUtil;
 
-    public UserController(UserService userService) {
+
+    public UserController(UserService userService, JwtUtil jwtUtil) {
         this.userService = userService;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("")
@@ -26,12 +30,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody Map<String, String> request) {
+    public String login(@RequestBody Map<String, String> request) {
         String username = request.get("username");
         String email = request.get("email");
         String password = request.get("password");
 
-        return userService.checkPassword(username, email, password);
+        User user = userService.checkPassword(username, email, password);
+        return jwtUtil.createToken(user.getUserId());
     }
 
     @DeleteMapping("/{userId}")
