@@ -6,6 +6,7 @@ import com.jaswal.portfoliotracker.services.PortfolioService;
 import com.jaswal.portfoliotracker.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -47,5 +48,15 @@ public class PortfolioController {
     @DeleteMapping("/api/portfolios/{portfolioId}")
     public void deletePortfolio(@PathVariable Long portfolioId){
         portfolioService.deletePortfolio(portfolioId);
+    }
+
+    @GetMapping("/api/portfolios/{portfolioId}/pnl")
+    public BigDecimal getPortfolioPnl(@PathVariable Long portfolioId){
+        return portfolioService.calculatePortfolioPnl(portfolioId);
+    }
+
+    @GetMapping("/api/portfolios/{portfolioId}/value")
+    public BigDecimal getPortfolioValue(@PathVariable Long portfolioId){
+        return portfolioService.calculatePortfolioValue(portfolioId);
     }
 }
