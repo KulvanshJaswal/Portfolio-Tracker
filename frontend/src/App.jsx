@@ -1,10 +1,18 @@
 import { useState } from 'react';
 
 function App() {
+
     const [input, setInput] = useState('')
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState({});
+
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        const validationErrors = validateForm();
+        if (Object.keys(validationErrors).length > 0) {
+            return setErrors(validationErrors);
+        }
 
         let token;
         try {
@@ -34,6 +42,18 @@ function App() {
             console.log("Error ", error);
         }
     }
+
+    const validateForm = () => {
+        const errors = {};
+        if(input.trim().length < 1){
+            errors.input = "Username or email must be at least 1 characters";
+        }
+        if(password.trim().length < 8){
+            errors.password = "Password must be at least 8 characters";
+        }
+        return errors;
+    }
+
     return (
         <div className="login-container">
             <h1>Portfolio Tracker</h1>
@@ -48,6 +68,8 @@ function App() {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                     />
+                    <br/>
+                    {errors.input && <span className="error">{errors.input}</span>}
                 </div>
 
                 <div>
@@ -58,6 +80,8 @@ function App() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <br/>
+                    {errors.input && <span className="error">{errors.password}</span>}
                 </div>
 
                 <button type="submit">Login</button>
