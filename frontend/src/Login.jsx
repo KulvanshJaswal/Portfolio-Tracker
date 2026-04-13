@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Register from './Register';
 
 function Login() {
     const [input, setInput] = useState('');
@@ -40,7 +39,12 @@ function Login() {
                 console.log("Token successful ", token);
                 window.location.href = "/dashboard";
             } else {
-                console.log("Token not successful");
+                try {
+                    const errorData = await response.json();
+                    setErrors({ backend: errorData.message || "Login failed" });
+                } catch {
+                    setErrors({ backend: "Login failed. Please try again." });
+                }
             }
         } catch (error) {
             console.log("Error ", error);
@@ -64,6 +68,8 @@ function Login() {
             <h2>Login</h2>
 
             <form onSubmit={handleLogin}>
+                {errors.backend && <span className="error">{errors.backend}</span>}
+
                 <div>
                     <label>Username or Email:</label>
                     <input
