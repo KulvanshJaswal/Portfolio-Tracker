@@ -1,6 +1,7 @@
 package com.jaswal.portfoliotracker.services;
 
 
+import com.jaswal.portfoliotracker.config.AuthUtils;
 import com.jaswal.portfoliotracker.entities.Invite;
 import com.jaswal.portfoliotracker.entities.Membership;
 import com.jaswal.portfoliotracker.entities.Portfolio;
@@ -34,6 +35,7 @@ public class MembershipService {
     }
 
     public Membership addMember(Long portfolioId, Long userId, Role role) {
+        requireAdmin(portfolioId);
         // Validate inputs
         if (portfolioId == null || userId == null || role == null) {
             throw new IllegalArgumentException("Portfolio ID, User ID, and Role cannot be null");
@@ -61,6 +63,7 @@ public class MembershipService {
         return membershipRepository.save(membership);
     }
     public void removeMember(Long portfolioId, Long userId) {
+        requireAdmin(portfolioId);
         Membership membership = membershipRepository
                 .findByUser_UserIdAndPortfolio_PortfolioId(userId, portfolioId)
                 .orElseThrow(() -> new RuntimeException("Membership not found"));
@@ -68,6 +71,7 @@ public class MembershipService {
         membershipRepository.delete(membership);
     }
     public Membership updateMemberRole(Long portfolioId, Long userId, Role newRole) {
+        requireAdmin(portfolioId);
         if (newRole == null) {
             throw new IllegalArgumentException("Role cannot be null");
         }
@@ -105,6 +109,20 @@ public class MembershipService {
                 .orElse(false);
     }
 
+    public void requireAdmin(Long portfolioId) {
+        Long userId = AuthUtils.getCurrentUserId();
+        if (!hasRole(userId, portfolioId, Role.ADMIN)) {
+            throw new RuntimeException("Access denied: Admin role required");
+        }
+    }
+
+    public void requireMemberOrAbove(Long portfolioId) {
+        Long userId = AuthUtils.getCurrentUserId();
+        if (!hasRole(userId, portfolioId, Role.MEMBER)) {
+            throw new RuntimeException("Access denied: Member role or above required");
+        }
+    }
+
     private boolean hasPermission(Role userRole, Role requiredRole) {
         if (userRole == Role.ADMIN) return true;
         if (userRole == Role.MEMBER) return requiredRole != Role.ADMIN;
@@ -118,6 +136,7 @@ public class MembershipService {
         return code;
     }
     public Invite createInvite(Long portfoliioId, Long userId, Integer daysForExpiry, Integer maxUses,Role userRole){
+        requireAdmin(portfoliioId);
         Invite invite = new Invite();
         invite.setCreatedBy(userRepository.findById(userId).orElseThrow(()
                 ->new RuntimeException("Must be a user of the Portfolio to send an invite")));
@@ -197,6 +216,7 @@ public class MembershipService {
     public void deleteInvite(Long inviteId) {
         Invite invite = inviteRepository.findById(inviteId)
                 .orElseThrow(() -> new RuntimeException("Invite not found with id: " + inviteId));
+        requireAdmin(invite.getPortfolio().getPortfolioId());
         inviteRepository.delete(invite);
     }
 
