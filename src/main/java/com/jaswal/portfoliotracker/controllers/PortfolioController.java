@@ -1,5 +1,6 @@
 package com.jaswal.portfoliotracker.controllers;
 
+import com.jaswal.portfoliotracker.dto.PortfolioSummary;
 import com.jaswal.portfoliotracker.entities.Portfolio;
 import com.jaswal.portfoliotracker.entities.User;
 import com.jaswal.portfoliotracker.services.PortfolioService;
@@ -47,5 +48,17 @@ public class PortfolioController {
     @DeleteMapping("/api/portfolios/{portfolioId}")
     public void deletePortfolio(@PathVariable Long portfolioId){
         portfolioService.deletePortfolio(portfolioId);
+    }
+
+    @GetMapping("/api/portfolios/{portfolioId}/summary")
+    public PortfolioSummary getPortfolioSummary(@PathVariable Long portfolioId) {
+        return portfolioService.getPortfolioSummary(portfolioId);
+    }
+
+    @GetMapping("/api/users/{userId}/portfolios/summary")
+    public List<PortfolioSummary> getUserPortfolioSummaries(@PathVariable Long userId) {
+        return portfolioService.findUsersPortfolios(userId).stream()
+                .map(p -> portfolioService.getPortfolioSummary(p.getPortfolioId()))
+                .toList();
     }
 }

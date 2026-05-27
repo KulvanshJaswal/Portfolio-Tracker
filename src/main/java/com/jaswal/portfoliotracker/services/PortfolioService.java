@@ -1,6 +1,7 @@
 package com.jaswal.portfoliotracker.services;
 
 import com.jaswal.portfoliotracker.config.AuthUtils;
+import com.jaswal.portfoliotracker.dto.PortfolioSummary;
 import com.jaswal.portfoliotracker.entities.Portfolio;
 import com.jaswal.portfoliotracker.entities.Position;
 import com.jaswal.portfoliotracker.entities.PriceQuote;
@@ -100,6 +101,23 @@ public class PortfolioService {
         }
         return sum;
     }
+    public BigDecimal calculateTotalCost(Long portfolioId) {
+        List<Position> positions = positionService.getPositionsForPortfolio(portfolioId);
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Position position : positions) {
+            sum = sum.add(position.getTotalCost());
+        }
+        return sum;
+    }
+
+    public PortfolioSummary getPortfolioSummary(Long portfolioId) {
+        Portfolio portfolio = getPortfolio(portfolioId);
+        BigDecimal pnl = calculatePortfolioPnl(portfolioId);
+        BigDecimal totalValue = calculatePortfolioValue(portfolioId);
+        BigDecimal totalCost = calculateTotalCost(portfolioId);
+        return new PortfolioSummary(portfolio, pnl, totalValue, totalCost);
+    }
+
     public List<Portfolio> findUsersPortfolios(Long user_id) {
         return portfolioRepository.findByCreatedBy_UserId(user_id);
     }
