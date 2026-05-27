@@ -1,6 +1,7 @@
 package com.jaswal.portfoliotracker.services;
 
 
+import com.jaswal.portfoliotracker.config.AuthUtils;
 import com.jaswal.portfoliotracker.entities.*;
 import com.jaswal.portfoliotracker.enums.AssetType;
 import com.jaswal.portfoliotracker.enums.TransactionType;
@@ -22,20 +23,24 @@ public class TransactionService {
     private final PositionRepository positionRepository;
     private final PortfolioRepository portfolioRepository;
     private final PortfolioService portfolioService;
+    private final MembershipService membershipService;
 
     public TransactionService(
             TransactionRepository transactionRepository,
             PositionRepository positionRepository,
             PortfolioRepository portfolioRepository,
-            PortfolioService portfolioService
+            PortfolioService portfolioService,
+            MembershipService membershipService
     ){
         this.transactionRepository = transactionRepository;
         this.positionRepository = positionRepository;
-        this.portfolioRepository =portfolioRepository;
+        this.portfolioRepository = portfolioRepository;
         this.portfolioService = portfolioService;
+        this.membershipService = membershipService;
     }
 
     public void deposit(Long portfolioId, BigDecimal amount){
+        membershipService.requireMemberOrAbove(portfolioId);
         //Initial Error Checking
         if(amount.scale() > 2){
             throw new IllegalArgumentException("Amount can have a max of 2 decimal places");
@@ -85,6 +90,7 @@ public class TransactionService {
     }
 
     public void withdrawal(Long portfolioId, BigDecimal amount){
+        membershipService.requireMemberOrAbove(portfolioId);
         //Initial error checking
         if(amount.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalArgumentException("The amount being withdraw must be greater than zero");
@@ -122,6 +128,7 @@ public class TransactionService {
     }
 
     public void buy(Long portfolioId, String symbol, AssetType assetType, BigDecimal quantity, BigDecimal pricePerUnit){
+        membershipService.requireMemberOrAbove(portfolioId);
         //Initial Error Checking
         if(quantity.compareTo(BigDecimal.ZERO) <= 0 || pricePerUnit.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalArgumentException("The amount being bought should be greater than 0");
@@ -183,6 +190,7 @@ public class TransactionService {
     }
 
     public void sell(Long portfolioId, String symbol, AssetType assetType, BigDecimal quantity, BigDecimal pricePerUnit){
+        membershipService.requireMemberOrAbove(portfolioId);
         //Initial error checking
         if(quantity.compareTo(BigDecimal.ZERO) <= 0 || pricePerUnit.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalArgumentException("The amount being sold should be greater than 0");
@@ -232,6 +240,10 @@ public class TransactionService {
     }
 
     public List<Transaction> getTransactionsForPortfolio(Long portfolioId) {
+        Long userId = AuthUtils.getCurrentUserId();
+        if (!membershipService.hasAccess(userId, portfolioId)) {
+            throw new RuntimeException("Access denied: You are not a member of this portfolio");
+        }
         Portfolio portfolio = portfolioRepository.findById(portfolioId)
                 .orElseThrow(() -> new IllegalArgumentException("Portfolio does not exist"));
         return transactionRepository.findByPortfolio(portfolio);

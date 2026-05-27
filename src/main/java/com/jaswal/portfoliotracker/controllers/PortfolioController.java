@@ -1,5 +1,6 @@
 package com.jaswal.portfoliotracker.controllers;
 
+import com.jaswal.portfoliotracker.dto.PortfolioSummary;
 import com.jaswal.portfoliotracker.entities.Portfolio;
 import com.jaswal.portfoliotracker.entities.User;
 import com.jaswal.portfoliotracker.services.PortfolioService;
@@ -58,5 +59,17 @@ public class PortfolioController {
     @GetMapping("/api/portfolios/{portfolioId}/value")
     public BigDecimal getPortfolioValue(@PathVariable Long portfolioId){
         return portfolioService.calculatePortfolioValue(portfolioId);
+    }
+
+    @GetMapping("/api/portfolios/{portfolioId}/summary")
+    public PortfolioSummary getPortfolioSummary(@PathVariable Long portfolioId) {
+        return portfolioService.getPortfolioSummary(portfolioId);
+    }
+
+    @GetMapping("/api/users/{userId}/portfolios/summary")
+    public List<PortfolioSummary> getUserPortfolioSummaries(@PathVariable Long userId) {
+        return portfolioService.findUsersPortfolios(userId).stream()
+                .map(p -> portfolioService.getPortfolioSummary(p.getPortfolioId()))
+                .toList();
     }
 }
