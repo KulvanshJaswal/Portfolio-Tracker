@@ -1,55 +1,73 @@
 # Portfolio Tracker
 
-A multi-user portfolio management system for tracking stocks and cryptocurrencies with real-time price updates and comprehensive transaction history.
+A full-stack multi-user portfolio management system for tracking stocks and cryptocurrencies with real-time price updates, transaction history, and invite-based collaboration.
 
 ## Overview
 
-Portfolio Tracker allows users to manage investment portfolios with support for stocks, cryptocurrencies, and cash positions. The system features role-based access control, allowing users to invite others to view or collaborate on their portfolios.
+Portfolio Tracker lets users create and manage investment portfolios, buy and sell stocks and crypto at live market prices, track P&L, and invite others to collaborate. Access is controlled through a role-based membership system — each portfolio can have Admins, Members, and Visitors.
 
 ## Key Features
 
-- **Multi-user support** with authentication and authorization
-- **Portfolio management** with buy, sell, deposit, and withdraw operations
-- **Automated price updates** via scheduled tasks fetching from external APIs
-- **Real-time P&L calculations** based on current market prices
-- **Transaction history** with complete audit trail
-- **Invite system** for sharing portfolios with members or visitors
-- **Role-based permissions** (Admin, Member, Visitor)
+- **Authentication** — JWT-based stateless auth with registration and login
+- **Portfolio management** — create multiple portfolios, rename or delete them
+- **Trading** — buy and sell stocks and crypto at live Alpha Vantage prices; deposit and withdraw cash
+- **Real-time P&L** — per-position and portfolio-level profit/loss based on cached market prices, updated daily at market close
+- **Transaction history** — full audit trail of every buy, sell, deposit, and withdrawal
+- **Invite system** — share portfolios via invite codes with configurable role, expiry, and max uses
+- **Role-based access** — Admin (full control), Member (trade + view), Visitor (view only)
+- **Automated price refresh** — scheduled job updates all tracked prices at 4:30 PM ET on weekdays
 
 ## Tech Stack
 
-- **Backend:** Java, Spring Boot
-- **Database:** MySQL
-- **APIs:** External market data APIs for price updates
-- **Frontend:** HTML/CSS/JavaScript (planned)
+| Layer | Technology |
+|---|---|
+| Backend | Java 21, Spring Boot 4, Spring Security 7 |
+| Database | MySQL 8 with Hibernate |
+| Frontend | React 19, Vite, React Router |
+| Price Data | Alpha Vantage API (stocks + crypto) |
 
-## Learning Goals
+## Running Locally
 
-This project is being developed as a learning experience to master:
-- Spring Boot framework and dependency injection
-- RESTful API design
-- Database design and SQL
-- Scheduled tasks and background jobs
-- Authentication and authorization
-- External API integration
+**Prerequisites:** Java 21+, Node 18+, MySQL 8
 
-## Project Status
+### Backend
 
-🚧 **In Development** - Target completion: April 30, 2026
+```bash
+# Set your DB credentials and Alpha Vantage API key in application.properties
+./mvnw spring-boot:run
+# Runs on http://localhost:8080
+```
 
-Currently implementing core transaction processing and database architecture.
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+# Runs on http://localhost:5173
+```
+
+## API Overview
+
+| Resource | Endpoints |
+|---|---|
+| Users | `POST /api/users` · `POST /api/users/login` |
+| Portfolios | `GET/POST /api/users/{id}/portfolios/summary` · `PUT/DELETE /api/portfolios/{id}` |
+| Positions | `GET /api/portfolios/{id}/positions` · `GET /{symbol}/pnl` |
+| Transactions | `GET /api/portfolios/{id}/transactions` · `POST /deposit` · `/withdrawal` · `/buy` · `/sell` |
+| Members | `GET/POST /api/portfolios/{id}/members` · `PUT/DELETE /{userId}` |
+| Invites | `POST /api/portfolios/{id}/invites` · `POST /api/invites/{code}/redeem/{userId}` |
 
 ## Database Schema
 
-The system uses 7 main tables:
-- Users
-- Portfolios
-- Memberships
-- Transactions
-- Positions
-- PriceQuotes
-- Invites
+7 tables: `users`, `portfolios`, `memberships`, `transactions`, `positions`, `price_quotes`, `invites`
+
+The `memberships` table is the source of truth for portfolio access — it covers both owned and joined portfolios and enforces unique `(user_id, portfolio_id)` pairs.
+
+## Project Status
+
+In active development. Core features (auth, trading, invites, P&L, transaction history) are complete and tested end-to-end.
 
 ## Authors
 
-Kulvansh Jaswal and Kuljot Jaswal - University of Calgary Software Engineering Students
+Kulvansh Jaswal and Kuljot Jaswal — University of Calgary Software Engineering Students
