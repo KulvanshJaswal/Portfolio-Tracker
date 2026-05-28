@@ -15,4 +15,5 @@ public class PortfolioSummary {
     private BigDecimal pnl;
     private BigDecimal totalValue;
     private BigDecimal totalCost;
+    private BigDecimal cashBalance;
 }

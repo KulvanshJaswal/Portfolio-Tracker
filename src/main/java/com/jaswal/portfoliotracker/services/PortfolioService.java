@@ -121,7 +121,11 @@ public class PortfolioService {
         BigDecimal pnl = calculatePortfolioPnl(portfolioId);
         BigDecimal totalValue = calculatePortfolioValue(portfolioId);
         BigDecimal totalCost = calculateTotalCost(portfolioId);
-        return new PortfolioSummary(portfolio, pnl, totalValue, totalCost);
+        BigDecimal cashBalance = positionRepository
+                .findByPortfolio_PortfolioIdAndSymbol(portfolioId, "CASH")
+                .map(Position::getTotalQuantity)
+                .orElse(BigDecimal.ZERO);
+        return new PortfolioSummary(portfolio, pnl, totalValue, totalCost, cashBalance);
     }
 
     public List<Portfolio> findUsersPortfolios(Long user_id) {

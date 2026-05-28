@@ -101,7 +101,7 @@ export default function Dashboard() {
                     </div>
                 ) : (
                     <div className="portfolio-grid">
-                        {summaries.map(({ portfolio, totalValue, pnl, totalCost }) => (
+                        {summaries.map(({ portfolio, totalValue, pnl, cashBalance }) => (
                             <div className="portfolio-card" key={portfolio.portfolioId}>
                                 <div className="portfolio-card-header">
                                     <h3>{portfolio.name}</h3>
@@ -116,8 +116,8 @@ export default function Dashboard() {
                                         <span className={`metric-value ${pnlCls(pnl)}`}>{fmt(pnl)}</span>
                                     </div>
                                     <div className="metric">
-                                        <span className="metric-label">Cost Basis</span>
-                                        <span className="metric-value">{fmt(totalCost)}</span>
+                                        <span className="metric-label">Cash</span>
+                                        <span className="metric-value">{fmt(cashBalance)}</span>
                                     </div>
                                 </div>
                                 <Link to={`/portfolios/${portfolio.portfolioId}`} className="btn-card-link">

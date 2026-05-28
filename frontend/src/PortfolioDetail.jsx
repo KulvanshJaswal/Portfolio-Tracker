@@ -112,12 +112,14 @@ export default function PortfolioDetail() {
     async function loadData() {
         try {
             setLoading(true);
-            const [sum, pos] = await Promise.all([
+            const [sum, pos, mems] = await Promise.all([
                 api.get(`/portfolios/${portfolioId}/summary`),
                 api.get(`/portfolios/${portfolioId}/positions`),
+                api.get(`/portfolios/${portfolioId}/members`),
             ]);
             setSummary(sum);
             setPositions(pos || []);
+            setMembers(mems || []);
             setNameInput(sum?.portfolio?.name || '');
             setError('');
         } catch (e) {
@@ -178,7 +180,6 @@ export default function PortfolioDetail() {
     function openTxForm(mode) {
         setTxMode(prev => prev === mode ? null : mode);
         setTxError('');
-        setTxSuccess('');
         setTxForm((mode === 'buy' || mode === 'sell') ? { assetType: 'STOCK' } : {});
     }
 
@@ -332,7 +333,9 @@ export default function PortfolioDetail() {
                                 <span className="edit-hint">✎</span>
                             </h1>
                         )}
-                        <button className="btn-danger btn-sm" onClick={() => setShowDeleteConfirm(true)}>Delete</button>
+                        {members.find(m => m.user?.userId === parseInt(user?.userId))?.role === 'ADMIN' && (
+                            <button className="btn-danger btn-sm" onClick={() => setShowDeleteConfirm(true)}>Delete</button>
+                        )}
                     </div>
                 </div>
 
