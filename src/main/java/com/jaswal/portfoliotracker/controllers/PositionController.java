@@ -33,7 +33,7 @@ public class PositionController {
     @GetMapping("/{symbol}/pnl")
     public BigDecimal getPositionPnl(@PathVariable Long portfolioId, @PathVariable String symbol){
         Position position = positionService.getPositionBySymbol(portfolioId, symbol);
-        BigDecimal currentPrice = priceQuoteService.getCurrentPrice(symbol, position.getAssetType());
+        BigDecimal currentPrice = priceQuoteService.getCachedPrice(symbol, position.getAssetType());
         return positionService.getPositionPnl(position, currentPrice);
     }
 

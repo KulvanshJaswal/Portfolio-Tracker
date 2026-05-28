@@ -1,6 +1,7 @@
 package com.jaswal.portfoliotracker.controllers;
 
 import com.jaswal.portfoliotracker.entities.Position;
+import com.jaswal.portfoliotracker.entities.Transaction;
 import com.jaswal.portfoliotracker.enums.AssetType;
 import com.jaswal.portfoliotracker.services.PositionService;
 import com.jaswal.portfoliotracker.services.PriceQuoteService;
@@ -28,6 +29,13 @@ public class TransactionController {
         this.transactionService = transactionService;
         this.positionService = positionService;
         this.priceQuoteService = priceQuoteService;
+    }
+
+    @GetMapping("")
+    public List<Transaction> getTransactions(
+            @PathVariable Long portfolioId
+    ) {
+        return transactionService.getTransactionsForPortfolio(portfolioId);
     }
 
     @PostMapping("/deposit")
@@ -67,7 +75,9 @@ public class TransactionController {
             @PathVariable Long portfolioId,
             @RequestBody Request request
     ){
-        BigDecimal pricePerUnit = priceQuoteService.getCurrentPrice(request.getSymbol(), request.getAssetType());
+        BigDecimal pricePerUnit = request.getPricePerUnit() != null
+                ? request.getPricePerUnit()
+                : priceQuoteService.getCurrentPrice(request.getSymbol(), request.getAssetType());
         transactionService.buy(
                 portfolioId, request.getSymbol(),
                 request.getAssetType(), request.getQuantity(),
@@ -84,7 +94,12 @@ public class TransactionController {
             @PathVariable Long portfolioId,
             @RequestBody Request request
     ){
-        BigDecimal pricePerUnit = priceQuoteService.getCurrentPrice(request.getSymbol(), request.getAssetType());
+        BigDecimal pricePerUnit = request.getPricePerUnit() != null
+                ? request.getPricePerUnit()
+                : priceQuoteService.getCurrentPrice(request.getSymbol(), request.getAssetType());
+        if (request.getPricePerUnit() != null) {
+            priceQuoteService.cachePrice(request.getSymbol(), request.getAssetType(), pricePerUnit);
+        }
         transactionService.sell(
                 portfolioId, request.getSymbol(),
                 request.getAssetType(), request.getQuantity(),

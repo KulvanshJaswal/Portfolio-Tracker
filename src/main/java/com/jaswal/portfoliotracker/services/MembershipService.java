@@ -34,6 +34,14 @@ public class MembershipService {
         this.portfolioRepository = portfolioRepository;
     }
 
+    public Membership createOwnerMembership(Portfolio portfolio, User user) {
+        Membership membership = new Membership();
+        membership.setUser(user);
+        membership.setPortfolio(portfolio);
+        membership.setRole(Role.ADMIN);
+        return membershipRepository.save(membership);
+    }
+
     public Membership addMember(Long portfolioId, Long userId, Role role) {
         requireAdmin(portfolioId);
         // Validate inputs

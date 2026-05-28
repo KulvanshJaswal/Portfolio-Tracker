@@ -30,6 +30,18 @@ public class PriceQuoteService {
         this.restClient = RestClient.create();
     }
 
+    public void cachePrice(String symbol, AssetType assetType, BigDecimal price) {
+        PriceQuote quote = priceQuoteRepository.findById(symbol).orElse(new PriceQuote());
+        if (quote.getSymbol() == null) {
+            quote.setSymbol(symbol);
+            quote.setAssetType(assetType);
+            quote.setSource("Manual");
+        }
+        quote.setPrice(price);
+        quote.setLastUpdated(LocalDateTime.now());
+        priceQuoteRepository.save(quote);
+    }
+
     public BigDecimal getCachedPrice(String symbol, AssetType assetType) {
         if (symbol.equals("CASH")) {
             return BigDecimal.ONE;
@@ -44,7 +56,7 @@ public class PriceQuoteService {
     public BigDecimal getCurrentPrice(String symbol, AssetType assetType){
         PriceQuote priceQuote = priceQuoteRepository.findById(symbol).orElse(new PriceQuote());
 
-        if (apiCalls.get(assetType).size() >= 25){
+        if (apiCalls.get(assetType) != null && apiCalls.get(assetType).size() >= 25){
             throw new IllegalArgumentException("Max api calls reached");
         }
 

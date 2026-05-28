@@ -35,12 +35,11 @@ public class PortfolioService {
     }
     public Portfolio createPortfolio(User user, String portfolioName){
         Portfolio portfolio = new Portfolio();
-
         portfolio.setCreatedBy(user);
-
         portfolio.setName(portfolioName);
-
-        return portfolioRepository.save(portfolio);
+        Portfolio saved = portfolioRepository.save(portfolio);
+        membershipService.createOwnerMembership(saved, user);
+        return saved;
     }
     public Portfolio getPortfolio(Long id){
         return portfolioRepository.findById(id).orElseThrow(() -> new RuntimeException("Portfolio not found with id" + id));
@@ -77,8 +76,12 @@ public class PortfolioService {
             if (position.getSymbol().equals("CASH")){
                 continue;
             }
-            BigDecimal current_price = priceQuoteService.getCachedPrice(position.getSymbol(), position.getAssetType());  // ← Changed
-            sum = sum.add(positionService.getPositionPnl(position, current_price));
+            try {
+                BigDecimal current_price = priceQuoteService.getCachedPrice(position.getSymbol(), position.getAssetType());
+                sum = sum.add(positionService.getPositionPnl(position, current_price));
+            } catch (Exception ignored) {
+                // No market price cached for this position — skip it
+            }
         }
         return sum;
     }
@@ -95,9 +98,12 @@ public class PortfolioService {
                 sum = sum.add(position.getTotalQuantity());
                 continue;
             }
-            BigDecimal current_price = priceQuoteService.getCachedPrice(position.getSymbol(), position.getAssetType());  // ← Changed
-            BigDecimal quantity = position.getTotalQuantity();
-            sum = sum.add(quantity.multiply(current_price));
+            try {
+                BigDecimal current_price = priceQuoteService.getCachedPrice(position.getSymbol(), position.getAssetType());
+                sum = sum.add(position.getTotalQuantity().multiply(current_price));
+            } catch (Exception ignored) {
+                // No market price cached for this position — skip it
+            }
         }
         return sum;
     }
@@ -120,6 +126,12 @@ public class PortfolioService {
 
     public List<Portfolio> findUsersPortfolios(Long user_id) {
         return portfolioRepository.findByCreatedBy_UserId(user_id);
+    }
+
+    public List<Portfolio> findAccessiblePortfolios(Long userId) {
+        return membershipService.getUserMemberships(userId).stream()
+                .map(m -> m.getPortfolio())
+                .toList();
     }
 
     public Portfolio findPortfolioByName(Long userId, String portfolioName){

@@ -68,7 +68,7 @@ public class PortfolioController {
 
     @GetMapping("/api/users/{userId}/portfolios/summary")
     public List<PortfolioSummary> getUserPortfolioSummaries(@PathVariable Long userId) {
-        return portfolioService.findUsersPortfolios(userId).stream()
+        return portfolioService.findAccessiblePortfolios(userId).stream()
                 .map(p -> portfolioService.getPortfolioSummary(p.getPortfolioId()))
                 .toList();
     }
