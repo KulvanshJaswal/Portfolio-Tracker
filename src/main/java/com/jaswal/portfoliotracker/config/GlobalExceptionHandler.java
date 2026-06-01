@@ -21,7 +21,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleRuntime(RuntimeException e) {
+        String msg = e.getMessage();
+        if (msg != null && msg.startsWith("Access denied")) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("message", msg));
+        }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("message", e.getMessage() != null ? e.getMessage() : "An unexpected error occurred"));
+                .body(Map.of("message", msg != null ? msg : "An unexpected error occurred"));
     }
 }

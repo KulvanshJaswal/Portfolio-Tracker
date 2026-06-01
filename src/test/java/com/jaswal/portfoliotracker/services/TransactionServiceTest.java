@@ -6,10 +6,13 @@ import com.jaswal.portfoliotracker.enums.AssetType;
 import com.jaswal.portfoliotracker.enums.TransactionType;
 import com.jaswal.portfoliotracker.repositories.*;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -38,13 +41,17 @@ public class TransactionServiceTest {
     private TransactionRepository transactionRepository;
 
     private Portfolio testPortfolio;
+    private User testUser;
+
     @Autowired
     private PositionService positionService;
 
+    @Autowired
+    private MembershipService membershipService;
+
     @BeforeEach
     void setUp() {
-        // Create fresh test data before each test
-        User testUser = new User();
+        testUser = new User();
         testUser.setUsername("testuser");
         testUser.setEmail("test@test.com");
         testUser = userRepository.save(testUser);
@@ -53,6 +60,16 @@ public class TransactionServiceTest {
         testPortfolio.setCreatedBy(testUser);
         testPortfolio.setName("Test Portfolio");
         testPortfolio = portfolioRepository.save(testPortfolio);
+
+        membershipService.createOwnerMembership(testPortfolio, testUser);
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(testUser, null, List.of())
+        );
+    }
+
+    @AfterEach
+    void tearDown() {
+        SecurityContextHolder.clearContext();
     }
 
     @Test

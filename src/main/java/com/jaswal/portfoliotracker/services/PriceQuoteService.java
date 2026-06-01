@@ -18,6 +18,8 @@ import java.util.*;
 @Transactional
 public class PriceQuoteService {
 
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
     @Value("${alphavantage.api.key}")
     private String apiKey;
     private final RestClient restClient;
@@ -83,7 +85,6 @@ public class PriceQuoteService {
         apiCalls.get(assetType).add(LocalDateTime.now());
 
         //Fetching price
-        ObjectMapper objectMapper = new ObjectMapper();
         BigDecimal price;
         try {
             Map<String, Object> jsonMap = objectMapper.readValue(response, Map.class);

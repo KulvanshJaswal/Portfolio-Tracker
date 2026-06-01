@@ -17,4 +17,6 @@ public interface InviteRepository extends JpaRepository<Invite, Long> {
 
     List<Invite> findByPortfolio_PortfolioIdAndExpiresAtAfter(Long portfolioPortfolioId, LocalDateTime expiresAtAfter);
 
+    void deleteAllByPortfolio_PortfolioId(Long portfolioId);
+
 }

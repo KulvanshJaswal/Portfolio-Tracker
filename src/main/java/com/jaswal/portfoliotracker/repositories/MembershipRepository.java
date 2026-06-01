@@ -18,4 +18,6 @@ public interface MembershipRepository extends JpaRepository<Membership, Long> {
 
     Optional<Membership> findByUser_UserIdAndPortfolio_PortfolioId(Long userId, Long portfolioId);
 
+    void deleteAllByPortfolio_PortfolioId(Long portfolioId);
+
 }

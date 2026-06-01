@@ -38,7 +38,7 @@ public class UserController {
         String token =jwtService.generateToken(user);
 
 
-        return Map.of("token", token);
+        return Map.of("token", token, "userId", user.getUserId().toString());
     }
 
     @DeleteMapping("/{userId}")

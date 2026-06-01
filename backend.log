@@ -102,3 +102,393 @@ Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users
 Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
 Hibernate: insert into users (email,password,username) values (?,?,?)
 Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: insert into users (email,password,username) values (?,?,?)
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: insert into portfolios (created_by,name) values (?,?)
+Hibernate: insert into membership (portfolio_id,role,user_id) values (?,?,?)
+Hibernate: select count(*) from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select t1_0.transaction_id,t1_0.asset_type,t1_0.portfolio_id,t1_0.price_per_unit,t1_0.quantity,t1_0.symbol,t1_0.timestamp,t1_0.transaction_type from transactions t1_0 where t1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: insert into transactions (asset_type,portfolio_id,price_per_unit,quantity,symbol,timestamp,transaction_type) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: insert into positions (asset_type,average_cost_per_unit,portfolio_id,symbol,total_cost,total_quantity) values (?,?,?,?,?,?)
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select t1_0.transaction_id,t1_0.asset_type,t1_0.portfolio_id,t1_0.price_per_unit,t1_0.quantity,t1_0.symbol,t1_0.timestamp,t1_0.transaction_type from transactions t1_0 where t1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: insert into price_quotes (asset_type,last_updated,price,source,symbol) values (?,?,?,?,?)
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: insert into transactions (asset_type,portfolio_id,price_per_unit,quantity,symbol,timestamp,transaction_type) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: insert into positions (asset_type,average_cost_per_unit,portfolio_id,symbol,total_cost,total_quantity) values (?,?,?,?,?,?)
+Hibernate: update positions set asset_type=?,average_cost_per_unit=?,portfolio_id=?,symbol=?,total_cost=?,total_quantity=? where position_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select t1_0.transaction_id,t1_0.asset_type,t1_0.portfolio_id,t1_0.price_per_unit,t1_0.quantity,t1_0.symbol,t1_0.timestamp,t1_0.transaction_type from transactions t1_0 where t1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select t1_0.transaction_id,t1_0.asset_type,t1_0.portfolio_id,t1_0.price_per_unit,t1_0.quantity,t1_0.symbol,t1_0.timestamp,t1_0.transaction_type from transactions t1_0 where t1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select i1_0.invite_id,i1_0.created_at,i1_0.created_by,i1_0.current_uses,i1_0.expires_at,i1_0.invite_code,i1_0.max_uses,i1_0.portfolio_id,i1_0.role from invites i1_0 where i1_0.portfolio_id=? and i1_0.expires_at>?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select i1_0.invite_id,i1_0.created_at,i1_0.created_by,i1_0.current_uses,i1_0.expires_at,i1_0.invite_code,i1_0.max_uses,i1_0.portfolio_id,i1_0.role from invites i1_0 where i1_0.invite_code=?
+Hibernate: insert into invites (created_at,created_by,current_uses,expires_at,invite_code,max_uses,portfolio_id,role) values (?,?,?,?,?,?,?,?)
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select i1_0.invite_id,i1_0.created_at,i1_0.created_by,i1_0.current_uses,i1_0.expires_at,i1_0.invite_code,i1_0.max_uses,i1_0.portfolio_id,i1_0.role from invites i1_0 where i1_0.portfolio_id=? and i1_0.expires_at>?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: insert into users (email,password,username) values (?,?,?)
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select i1_0.invite_id,i1_0.created_at,i1_0.created_by,i1_0.current_uses,i1_0.expires_at,i1_0.invite_code,i1_0.max_uses,i1_0.portfolio_id,i1_0.role from invites i1_0 where i1_0.invite_code=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: update invites set created_at=?,created_by=?,current_uses=?,expires_at=?,invite_code=?,max_uses=?,portfolio_id=?,role=? where invite_id=?
+Hibernate: insert into membership (portfolio_id,role,user_id) values (?,?,?)
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select t1_0.transaction_id,t1_0.asset_type,t1_0.portfolio_id,t1_0.price_per_unit,t1_0.quantity,t1_0.symbol,t1_0.timestamp,t1_0.transaction_type from transactions t1_0 where t1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: insert into price_quotes (asset_type,last_updated,price,source,symbol) values (?,?,?,?,?)
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: insert into transactions (asset_type,portfolio_id,price_per_unit,quantity,symbol,timestamp,transaction_type) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: insert into positions (asset_type,average_cost_per_unit,portfolio_id,symbol,total_cost,total_quantity) values (?,?,?,?,?,?)
+Hibernate: update positions set asset_type=?,average_cost_per_unit=?,portfolio_id=?,symbol=?,total_cost=?,total_quantity=? where position_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select t1_0.transaction_id,t1_0.asset_type,t1_0.portfolio_id,t1_0.price_per_unit,t1_0.quantity,t1_0.symbol,t1_0.timestamp,t1_0.transaction_type from transactions t1_0 where t1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: insert into price_quotes (asset_type,last_updated,price,source,symbol) values (?,?,?,?,?)
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: insert into transactions (asset_type,portfolio_id,price_per_unit,quantity,symbol,timestamp,transaction_type) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: insert into positions (asset_type,average_cost_per_unit,portfolio_id,symbol,total_cost,total_quantity) values (?,?,?,?,?,?)
+Hibernate: update positions set asset_type=?,average_cost_per_unit=?,portfolio_id=?,symbol=?,total_cost=?,total_quantity=? where position_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select m1_0.membership_id,m1_0.portfolio_id,m1_0.role,m1_0.user_id from membership m1_0 where m1_0.user_id=? and m1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select t1_0.transaction_id,t1_0.asset_type,t1_0.portfolio_id,t1_0.price_per_unit,t1_0.quantity,t1_0.symbol,t1_0.timestamp,t1_0.transaction_type from transactions t1_0 where t1_0.portfolio_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select u1_0.user_id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.user_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select count(*) from portfolios p1_0 where p1_0.portfolio_id=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select p1_0.position_id,p1_0.asset_type,p1_0.average_cost_per_unit,p1_0.portfolio_id,p1_0.symbol,p1_0.total_cost,p1_0.total_quantity from positions p1_0 where p1_0.portfolio_id=? and p1_0.symbol=?
+Hibernate: select p1_0.portfolio_id,cb1_0.user_id,cb1_0.email,cb1_0.password,cb1_0.username,p1_0.name from portfolios p1_0 left join users cb1_0 on cb1_0.user_id=p1_0.created_by where p1_0.portfolio_id=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0 where pq1_0.symbol=?
+2026-05-27T20:28:14.618-06:00  WARN 26720 --- [PortfolioTracker] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m51s18ms194µs200ns).
+2026-05-27T21:12:44.182-06:00  WARN 26720 --- [PortfolioTracker] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=28m59s336ms949µs200ns).
+2026-05-28T12:59:26.736-06:00  WARN 26720 --- [PortfolioTracker] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15h46m47s558ms825µs300ns).
+Hibernate: select pq1_0.symbol,pq1_0.asset_type,pq1_0.last_updated,pq1_0.price,pq1_0.source from price_quotes pq1_0
+Updated AAPL
+Failed to update BTC: Symbol not found: BTC
+Failed to update NVDA: Symbol not found: NVDA
+Hibernate: update price_quotes set asset_type=?,last_updated=?,price=?,source=? where symbol=?
+2026-05-28T14:59:28.198-06:00  WARN 26720 --- [PortfolioTracker] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=23m57s843ms883µs300ns).
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  19:49 h
+[INFO] Finished at: 2026-05-28T16:02:44-06:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:4.0.2:run (default-cli) on project portfoliotracker: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

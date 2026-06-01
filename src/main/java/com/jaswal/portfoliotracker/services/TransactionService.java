@@ -143,7 +143,7 @@ public class TransactionService {
         Position cashPosition = positionRepository.findByPortfolio_PortfolioIdAndSymbol(portfolioId, "CASH").orElseThrow(
                 () -> new IllegalArgumentException("Do not have sufficient funds")
         );
-        BigDecimal cashAmount = cashPosition.getTotalCost();
+        BigDecimal cashAmount = cashPosition.getTotalQuantity();
         if(cashAmount.compareTo(quantity.multiply(pricePerUnit)) < 0){
             throw new IllegalArgumentException("Do not have sufficient funds");
         }

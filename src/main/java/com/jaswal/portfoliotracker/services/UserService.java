@@ -72,7 +72,7 @@ public class UserService {
     }
 
         User user = userRepository.findById(user_id).orElseThrow(()->
-                new RuntimeException("The user with the id " + user_id + " does mot exist"));
+                new RuntimeException("The user with the id " + user_id + " does not exist"));
         if(usernameExists(username)){
             throw new RuntimeException("The user with the username " + username + " already exists");
         }
@@ -85,7 +85,7 @@ public class UserService {
             throw new IllegalArgumentException("The email can't be empty" + email);
         }
         User user = userRepository.findById(user_id).orElseThrow(() ->
-                new RuntimeException("The user with the id " + user_id + " does mot exist"));
+                new RuntimeException("The user with the id " + user_id + " does not exist"));
         if(emailExists(email)){
             throw new RuntimeException("There exists a user with the email " + email);
         }

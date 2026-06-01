@@ -21,7 +21,7 @@ CREATE TABLE membership(
 	user_id BIGINT,
 	FOREIGN KEY (user_id) REFERENCES users(user_id),
 	portfolio_id BIGINT,
-	FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id),
+	FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id) ON DELETE CASCADE,
 	role ENUM('ADMIN', 'MEMBER', 'VISITOR') NOT NULL,
 	UNIQUE(portfolio_id, user_id)
 );
@@ -29,7 +29,7 @@ CREATE TABLE membership(
 CREATE TABLE transactions(
 	transaction_id BIGINT PRIMARY KEY AUTO_INCREMENT,
 	portfolio_id BIGINT NOT NULL,
-	FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id),
+	FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id) ON DELETE CASCADE,
 	symbol VARCHAR(10) NOT NULL,
 	transaction_type ENUM('BUY', 'SELL', 'WITHDRAWAL', 'DEPOSIT') NOT NULL,
 	asset_type ENUM('STOCK', 'CRYPTO', 'CASH') NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE transactions(
 CREATE TABLE positions (
     position_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     portfolio_id BIGINT NOT NULL,
-    FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id),
+    FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id) ON DELETE CASCADE,
     symbol VARCHAR(10) NOT NULL,
     asset_type ENUM('STOCK', 'CRYPTO', 'CASH') NOT NULL,
     total_quantity DECIMAL(18, 8) NOT NULL,
@@ -68,6 +68,6 @@ CREATE TABLE invites (
     current_uses INT DEFAULT 0,
     expires_at TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id),
+    FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id) ON DELETE CASCADE,
     FOREIGN KEY (created_by) REFERENCES users(user_id)
 );

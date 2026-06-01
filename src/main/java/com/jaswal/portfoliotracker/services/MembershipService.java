@@ -131,6 +131,13 @@ public class MembershipService {
         }
     }
 
+    public void requireVisitorOrAbove(Long portfolioId) {
+        Long userId = AuthUtils.getCurrentUserId();
+        if (!hasRole(userId, portfolioId, Role.VISITOR)) {
+            throw new RuntimeException("Access denied: Portfolio membership required");
+        }
+    }
+
     private boolean hasPermission(Role userRole, Role requiredRole) {
         if (userRole == Role.ADMIN) return true;
         if (userRole == Role.MEMBER) return requiredRole != Role.ADMIN;
@@ -143,12 +150,12 @@ public class MembershipService {
         }while(inviteRepository.findByInviteCode(code).isPresent());
         return code;
     }
-    public Invite createInvite(Long portfoliioId, Long userId, Integer daysForExpiry, Integer maxUses,Role userRole){
-        requireAdmin(portfoliioId);
+    public Invite createInvite(Long portfolioId, Long userId, Integer daysForExpiry, Integer maxUses,Role userRole){
+        requireAdmin(portfolioId);
         Invite invite = new Invite();
         invite.setCreatedBy(userRepository.findById(userId).orElseThrow(()
                 ->new RuntimeException("Must be a user of the Portfolio to send an invite")));
-        invite.setPortfolio(portfolioRepository.findById(portfoliioId).orElseThrow(()
+        invite.setPortfolio(portfolioRepository.findById(portfolioId).orElseThrow(()
                 ->new RuntimeException("Must have a valid portfolio to invite a user to.")));
         invite.setInviteCode(generateInvitePassword());
         invite.setRole(userRole);

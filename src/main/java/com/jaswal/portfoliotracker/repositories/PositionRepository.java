@@ -20,4 +20,6 @@ public interface PositionRepository extends JpaRepository<Position, Long> {
 
     List<Position> findByPortfolio_PortfolioIdAndAssetType(Long portfolioId, AssetType assetType);
 
+    void deleteAllByPortfolio_PortfolioId(Long portfolioId);
+
 }

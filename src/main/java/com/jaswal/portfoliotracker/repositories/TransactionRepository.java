@@ -28,6 +28,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     List<Transaction> findByAssetTypeAndPortfolio(AssetType assetType, Portfolio portfolio);
 
+    void deleteAllByPortfolio_PortfolioId(Long portfolioId);
+
 
 
 

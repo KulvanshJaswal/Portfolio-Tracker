@@ -1,22 +1,22 @@
 package com.jaswal.portfoliotracker.services;
 
-import com.jaswal.portfoliotracker.config.AuthUtils;
 import com.jaswal.portfoliotracker.dto.PortfolioSummary;
 import com.jaswal.portfoliotracker.entities.Portfolio;
 import com.jaswal.portfoliotracker.entities.Position;
 import com.jaswal.portfoliotracker.entities.PriceQuote;
 import com.jaswal.portfoliotracker.entities.User;
+import com.jaswal.portfoliotracker.repositories.InviteRepository;
+import com.jaswal.portfoliotracker.repositories.MembershipRepository;
 import com.jaswal.portfoliotracker.repositories.PortfolioRepository;
 import com.jaswal.portfoliotracker.repositories.PositionRepository;
 import com.jaswal.portfoliotracker.repositories.PriceQuoteRepository;
+import com.jaswal.portfoliotracker.repositories.TransactionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import javax.sound.sampled.Port;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class PortfolioService {
@@ -25,13 +25,19 @@ public class PortfolioService {
     private final PriceQuoteService priceQuoteService;
     private final PositionService positionService;
     private final MembershipService membershipService;
+    private final InviteRepository inviteRepository;
+    private final TransactionRepository transactionRepository;
+    private final MembershipRepository membershipRepository;
 
-    public PortfolioService(PortfolioRepository portfolioRepository, PositionRepository positionRepository, PriceQuoteService priceQuoteService, PositionService positionService, MembershipService membershipService){
+    public PortfolioService(PortfolioRepository portfolioRepository, PositionRepository positionRepository, PriceQuoteService priceQuoteService, PositionService positionService, MembershipService membershipService, InviteRepository inviteRepository, TransactionRepository transactionRepository, MembershipRepository membershipRepository){
         this.portfolioRepository = portfolioRepository;
         this.positionRepository = positionRepository;
         this.positionService = positionService;
         this.priceQuoteService = priceQuoteService;
         this.membershipService = membershipService;
+        this.inviteRepository = inviteRepository;
+        this.transactionRepository = transactionRepository;
+        this.membershipRepository = membershipRepository;
     }
     public Portfolio createPortfolio(User user, String portfolioName){
         Portfolio portfolio = new Portfolio();
@@ -58,18 +64,20 @@ public class PortfolioService {
 
         return portfolioRepository.save(portfolio);
     }
+    @Transactional
     public void deletePortfolio(Long id){
         membershipService.requireAdmin(id);
         Portfolio portfolio = portfolioRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Portfolio not found with id" + id));
+        inviteRepository.deleteAllByPortfolio_PortfolioId(id);
+        transactionRepository.deleteAllByPortfolio_PortfolioId(id);
+        positionRepository.deleteAllByPortfolio_PortfolioId(id);
+        membershipRepository.deleteAllByPortfolio_PortfolioId(id);
         portfolioRepository.delete(portfolio);
     }
 
     public BigDecimal calculatePortfolioPnl(Long portfolio_id){
-        Long userId = AuthUtils.getCurrentUserId();
-        if (!membershipService.hasAccess(userId, portfolio_id)) {
-            throw new RuntimeException("Access denied: You are not a member of this portfolio");
-        }
+        membershipService.requireVisitorOrAbove(portfolio_id);
         BigDecimal sum = BigDecimal.ZERO;
         List<Position> positions = positionService.getPositionsForPortfolio(portfolio_id);
         for(Position position: positions){
@@ -87,10 +95,7 @@ public class PortfolioService {
     }
 
     public BigDecimal calculatePortfolioValue(Long portfolio_id) {
-        Long userId = AuthUtils.getCurrentUserId();
-        if (!membershipService.hasAccess(userId, portfolio_id)) {
-            throw new RuntimeException("Access denied: You are not a member of this portfolio");
-        }
+        membershipService.requireVisitorOrAbove(portfolio_id);
         BigDecimal sum = BigDecimal.ZERO;
         List<Position> positions = positionService.getPositionsForPortfolio(portfolio_id);
         for (Position position : positions) {
@@ -141,7 +146,7 @@ public class PortfolioService {
     public Portfolio findPortfolioByName(Long userId, String portfolioName){
         return portfolioRepository.findByCreatedBy_UserIdAndName(userId, portfolioName)
                 .orElseThrow(
-                        () -> new IllegalArgumentException("Portfolio not found with id" + id)
+                        () -> new IllegalArgumentException("Portfolio not found with name: " + portfolioName)
                 );
 
     }
